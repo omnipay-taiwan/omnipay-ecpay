@@ -2,10 +2,14 @@
 
 namespace Omnipay\ECPay\Message;
 
+use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
+use Omnipay\ECPay\Traits\HasECPay;
 
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
+    use HasECPay;
+
     /**
      * Is the response successful?
      *
@@ -53,7 +57,7 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
      */
     public function getRedirectData()
     {
-        $ecPay = $this->createECPay();
+        $ecPay = $this->createECPay($this->request);
         $ecPay->ServiceURL = $this->getRedirectUrl();
 
         return static::htmlToArray($ecPay->CheckoutString());

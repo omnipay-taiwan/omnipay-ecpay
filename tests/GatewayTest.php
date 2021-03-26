@@ -3,6 +3,7 @@
 namespace Omnipay\ECPay\Tests;
 
 use Omnipay\ECPay\Gateway;
+use Omnipay\ECPay\Tests\Stubs\StubGateway;
 use Omnipay\Tests\GatewayTestCase;
 
 class GatewayTest extends GatewayTestCase
@@ -18,7 +19,7 @@ class GatewayTest extends GatewayTestCase
     {
         parent::setUp();
 
-        $this->gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest());
+        $this->gateway = new StubGateway($this->getHttpClient(), $this->getHttpRequest());
 
         $this->options = [
             'transactionId' => uniqid('MerchantTradeNo', true),
@@ -26,6 +27,7 @@ class GatewayTest extends GatewayTestCase
             'description' => 'description',
             'returnUrl' => 'https://foo.bar/return_url',
             'notifyUrl' => 'https://foo.bar/notify_url',
+            'testMode' => true,
         ];
     }
 
@@ -36,7 +38,7 @@ class GatewayTest extends GatewayTestCase
         self::assertFalse($response->isSuccessful());
         self::assertTrue($response->isRedirect());
         self::assertEquals('POST', $response->getRedirectMethod());
-        self::assertEquals('https://payment.ecpay.com.tw/Cashier/AioCheckOut/V5', $response->getRedirectUrl());
+        self::assertEquals('https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5', $response->getRedirectUrl());
     }
 
     public function testCompletePurchase()
@@ -89,5 +91,16 @@ class GatewayTest extends GatewayTestCase
 
         self::assertTrue($response->isSuccessful());
         self::assertEquals('1|OK', $response->getMessage());
+    }
+
+    public function testFetchTransaction()
+    {
+        $response = $this->gateway->fetchTransaction(array_merge($this->options, [
+            'MerchantID' => '2000132',
+            'MerchantTradeNo' => '2821567410556',
+            'TimeStamp' => time(),
+        ]))->send();
+
+        self::assertTrue($response->isSuccessful());
     }
 }

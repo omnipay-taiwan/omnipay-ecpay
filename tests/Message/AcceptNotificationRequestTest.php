@@ -4,7 +4,6 @@ namespace Omnipay\ECPay\Tests\Message;
 
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\ECPay\Message\AcceptNotificationRequest;
-use Omnipay\ECPay\Message\CompletePurchaseRequest;
 use Omnipay\Tests\TestCase;
 
 class AcceptNotificationRequestTest extends TestCase

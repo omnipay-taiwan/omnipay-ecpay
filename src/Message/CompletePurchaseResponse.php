@@ -3,10 +3,14 @@
 namespace Omnipay\ECPay\Message;
 
 use Exception;
+use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\NotificationInterface;
+use Omnipay\ECPay\Traits\HasECPay;
 
 class CompletePurchaseResponse extends AbstractResponse implements NotificationInterface
 {
+    use HasECPay;
+
     public function isSuccessful()
     {
         return $this->valid() && $this->getCode() === '1';
@@ -57,11 +61,9 @@ class CompletePurchaseResponse extends AbstractResponse implements NotificationI
         return $this->isSuccessful() ? self::STATUS_COMPLETED : self::STATUS_FAILED;
     }
 
-
     protected function checkoutFeedback()
     {
-        $ecPay = $this->createECPay();
-        $ecPay->CheckOutFeedback();
+        $this->createECPay($this->request)->CheckOutFeedback();
 
         return true;
     }
