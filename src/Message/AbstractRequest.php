@@ -6,8 +6,7 @@ use Omnipay\Common\Message\AbstractRequest as BaseAbstractRequest;
 use Omnipay\ECPay\Traits\HasDefaults;
 
 /**
- * Abstract Request
- *
+ * Abstract Request.
  */
 abstract class AbstractRequest extends BaseAbstractRequest
 {
@@ -15,7 +14,6 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     protected $liveEndpoint = 'https://api.example.com';
     protected $testEndpoint = 'https://api-test.example.com';
-
 
     public function sendData($data)
     {
@@ -29,11 +27,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     protected function getBaseData()
     {
-        return [
-            'transaction_id' => $this->getTransactionId(),
-            'expire_date' => $this->getCard()->getExpiryDate('mY'),
-            'start_date' => $this->getCard()->getStartDate('mY'),
-        ];
+        return ['transaction_id' => $this->getTransactionId()];
     }
 
     protected function getEndpoint()

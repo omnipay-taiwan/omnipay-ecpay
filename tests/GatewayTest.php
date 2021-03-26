@@ -4,7 +4,6 @@ namespace Omnipay\ECPay\Tests;
 
 use Omnipay\ECPay\Gateway;
 use Omnipay\Tests\GatewayTestCase;
-use Omnipay\Common\CreditCard;
 
 class GatewayTest extends GatewayTestCase
 {
@@ -22,19 +21,22 @@ class GatewayTest extends GatewayTestCase
         $this->gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest());
 
         $this->options = [
-            'amount' => '10.00',
-            'card' => $this->getValidCard(),
+            'transactionId' => uniqid('MerchantTradeNo', true),
+            'amount' => 2000,
+            'description' => 'description',
+            'returnUrl' => 'https://foo.bar/return_url',
+            'notifyUrl' => 'https://foo.bar/notify_url',
         ];
     }
 
     public function testPurchase()
     {
-        $this->setMockHttpResponse('AuthorizeSuccess.txt');
-
         $response = $this->gateway->purchase($this->options)->send();
 
-        self::assertTrue($response->isSuccessful());
-        self::assertEquals('1234', $response->getTransactionReference());
-        self::assertNull($response->getMessage());
+        self::assertFalse($response->isSuccessful());
+        self::assertFalse($response->isSuccessful());
+        self::assertTrue($response->isRedirect());
+        self::assertEquals('POST', $response->getRedirectMethod());
+        self::assertEquals('https://payment.ecpay.com.tw/Cashier/AioCheckOut/V5', $response->getRedirectUrl());
     }
 }

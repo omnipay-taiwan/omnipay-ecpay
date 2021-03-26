@@ -6,9 +6,10 @@ use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\NotificationInterface;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\ECPay\Message\PurchaseRequest;
+use Omnipay\ECPay\Traits\HasDefaults;
 
 /**
- * Skeleton Gateway
+ * Skeleton Gateway.
  * @method NotificationInterface acceptNotification(array $options = [])
  * @method RequestInterface authorize(array $options = [])
  * @method RequestInterface completeAuthorize(array $options = [])
@@ -23,7 +24,7 @@ use Omnipay\ECPay\Message\PurchaseRequest;
  */
 class Gateway extends AbstractGateway
 {
-    use Traits\HasDefaults;
+    use HasDefaults;
 
     public function getName()
     {
@@ -33,7 +34,7 @@ class Gateway extends AbstractGateway
     public function getDefaultParameters()
     {
         return [
-            'ServiceURL' => "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5",  //服務位置
+            'ServiceURL' => 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5',  //服務位置
             'HashKey' => '5294y06JbISpM5x9', //測試用Hashkey，請自行帶入ECPay提供的HashKey
             'HashIV' => 'v77hoKGq4kWxNNIS', //測試用HashIV，請自行帶入ECPay提供的HashIV
             'MerchantID' => '2000132', //測試用MerchantID，請自行帶入ECPay提供的MerchantID
@@ -41,7 +42,6 @@ class Gateway extends AbstractGateway
             'testMode' => false,
         ];
     }
-
 
     /**
      * @param array $options

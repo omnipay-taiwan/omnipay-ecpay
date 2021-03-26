@@ -1,6 +1,6 @@
 {
     "name": "omnipay-taiwan/ecpay",
-    "description": ":package_description",
+    "description": "ECPay driver for the Omnipay payment processing library",
     "keywords": [
         "omnipay",
         "ecpay"
@@ -13,30 +13,8 @@
             "email": "recca0120@gmail.com"
         }
     ],
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "ecpay/php",
-                "version": "1.1.2",
-                "dist": {
-                    "url": "https://github.com/ECPay/ECPayAIO_PHP/archive/refs/heads/master.zip",
-                    "type": "zip"
-                },
-                "autoload": {
-                    "classmap": [
-                        "AioSDK/sdk",
-                        "ApplePaySDK/sdk",
-                        "EInvoiceSDK/sdk",
-                        "PayLogisticSDK/sdk"
-                    ]
-                }
-            }
-        }
-    ],
     "require": {
-        "omnipay/common": "^3.0",
-        "ecpay/php": "^1.1"
+        "omnipay/common": "^3.0"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
@@ -44,6 +22,12 @@
         "squizlabs/php_codesniffer": "^3"
     },
     "autoload": {
+        "classmap": [
+            "lib/ECPayAIO_PHP/AioSDK/sdk",
+            "lib/ECPayAIO_PHP/ApplePaySDK/sdk",
+            "lib/ECPayAIO_PHP/EInvoiceSDK/sdk",
+            "lib/ECPayAIO_PHP/PayLogisticSDK/sdk"
+        ],
         "psr-4": {
             "Omnipay\\ECPay\\": "src/"
         }
