@@ -2,7 +2,9 @@
 
 namespace Omnipay\ECPay\Message;
 
-class PurchaseResponse extends AbstractResponse
+use Omnipay\Common\Message\RedirectResponseInterface;
+
+class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
     /**
      * Is the response successful?

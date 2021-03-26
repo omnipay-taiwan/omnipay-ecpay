@@ -5,13 +5,13 @@ namespace Omnipay\ECPay;
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\NotificationInterface;
 use Omnipay\Common\Message\RequestInterface;
+use Omnipay\ECPay\Message\AcceptNotificationRequest;
 use Omnipay\ECPay\Message\CompletePurchaseRequest;
 use Omnipay\ECPay\Message\PurchaseRequest;
 use Omnipay\ECPay\Traits\HasDefaults;
 
 /**
  * Skeleton Gateway.
- * @method NotificationInterface acceptNotification(array $options = [])
  * @method RequestInterface authorize(array $options = [])
  * @method RequestInterface completeAuthorize(array $options = [])
  * @method RequestInterface capture(array $options = [])
@@ -58,5 +58,14 @@ class Gateway extends AbstractGateway
     public function completePurchase(array $options = [])
     {
         return $this->createRequest(CompletePurchaseRequest::class, $options);
+    }
+
+    /**
+     * @param array $options
+     * @return RequestInterface|NotificationInterface
+     */
+    public function acceptNotification(array $options = [])
+    {
+        return $this->createRequest(AcceptNotificationRequest::class, $options);
     }
 }

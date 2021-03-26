@@ -3,10 +3,11 @@
 namespace Omnipay\ECPay\Tests\Message;
 
 use Omnipay\Common\Exception\InvalidRequestException;
+use Omnipay\ECPay\Message\AcceptNotificationRequest;
 use Omnipay\ECPay\Message\CompletePurchaseRequest;
 use Omnipay\Tests\TestCase;
 
-class CompletePurchaseRequestTest extends TestCase
+class AcceptNotificationRequestTest extends TestCase
 {
     /**
      * @throws InvalidRequestException
@@ -33,7 +34,7 @@ class CompletePurchaseRequestTest extends TestCase
             'CheckMacValue' => 'E7EC8DDC6C5C51B1A4D8BEA261246066858B38184C55FD3DD3D6DFF53F535A64',
         ];
 
-        $request = new CompletePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
+        $request = new AcceptNotificationRequest($this->getHttpClient(), $this->getHttpRequest());
         $request->initialize(array_merge([
             'HashKey' => '5294y06JbISpM5x9',
             'HashIV' => 'v77hoKGq4kWxNNIS',
@@ -56,7 +57,7 @@ class CompletePurchaseRequestTest extends TestCase
         list($response, $options) = $result;
 
         self::assertTrue($response->isSuccessful());
-        self::assertEquals('Succeeded', $response->getMessage());
+        self::assertEquals('1|OK', $response->getMessage());
         self::assertEquals($options['RtnCode'], $response->getCode());
         self::assertEquals($options['TradeNo'], $response->getTransactionReference());
         self::assertEquals($options['MerchantTradeNo'], $response->getTransactionId());

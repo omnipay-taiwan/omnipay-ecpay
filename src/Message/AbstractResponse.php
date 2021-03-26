@@ -2,13 +2,13 @@
 
 namespace Omnipay\ECPay\Message;
 
-use ECPay_AllInOne as ECPay;
+use ECPay_AllInOne;
 use Omnipay\Common\Message\AbstractResponse as BaseAbstractResponse;
 
 abstract class AbstractResponse extends BaseAbstractResponse
 {
     /**
-     * @return ECPay
+     * @return ECPay_AllInOne
      */
     protected function createECPay()
     {
@@ -18,7 +18,7 @@ abstract class AbstractResponse extends BaseAbstractResponse
             $_POST = $this->getData();
         }
 
-        $ecPay = new ECPay();
+        $ecPay = new ECPay_AllInOne();
         $ecPay->HashKey = $this->request->getHashKey();
         $ecPay->HashIV = $this->request->getHashIV();
         $ecPay->MerchantID = $this->request->getMerchantID();

@@ -3,19 +3,13 @@
 namespace Omnipay\ECPay\Message;
 
 use Exception;
+use Omnipay\Common\Message\NotificationInterface;
 
-class CompletePurchaseResponse extends AbstractResponse
+class CompletePurchaseResponse extends AbstractResponse implements NotificationInterface
 {
     public function isSuccessful()
     {
-        try {
-            $ecPay = $this->createECPay();
-            $ecPay->CheckOutFeedback();
-
-            return $this->getCode() === '1';
-        } catch (Exception $e) {
-            return false;
-        }
+        return $this->valid() && $this->getCode() === '1';
     }
 
     /**
@@ -58,16 +52,29 @@ class CompletePurchaseResponse extends AbstractResponse
         return $this->data['MerchantTradeNo'];
     }
 
-    /**
-     * Get the response data.
-     *
-     * @return array
-     */
-    public function getData()
+    public function getTransactionStatus()
     {
-        $data = array_merge([], $this->data);
-        unset($data['HashKey'], $data['HashIV'], $data['EncryptType']);
+        return $this->isSuccessful() ? self::STATUS_COMPLETED : self::STATUS_FAILED;
+    }
 
-        return $data;
+
+    protected function checkoutFeedback()
+    {
+        $ecPay = $this->createECPay();
+        $ecPay->CheckOutFeedback();
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    private function valid()
+    {
+        try {
+            return $this->checkoutFeedback();
+        } catch (Exception $e) {
+            return false;
+        }
     }
 }
