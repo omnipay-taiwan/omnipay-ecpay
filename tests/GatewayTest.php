@@ -10,6 +10,10 @@ class GatewayTest extends GatewayTestCase
 {
     /** @var SkeletonGateway */
     protected $gateway;
+    /**
+     * @var array
+     */
+    private $options;
 
     public function setUp()
     {
