@@ -3,13 +3,13 @@
 namespace Omnipay\ECPay\Tests\Message;
 
 use Omnipay\Common\CreditCard;
-use Omnipay\ECPay\Message\AuthorizeRequest;
+use Omnipay\ECPay\Message\PurchaseRequest;
 use Omnipay\Tests\TestCase;
 
-class AuthorizeRequestTest extends TestCase
+class PurchaseRequestTest extends TestCase
 {
     /**
-     * @var AuthorizeRequest
+     * @var PurchaseRequest
      */
     private $request;
 
@@ -17,7 +17,7 @@ class AuthorizeRequestTest extends TestCase
     {
         parent::setUp();
 
-        $this->request = new AuthorizeRequest($this->getHttpClient(), $this->getHttpRequest());
+        $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
         $this->request->initialize(
             [
                 'amount' => '10.00',

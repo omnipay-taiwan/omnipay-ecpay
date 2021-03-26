@@ -2,13 +2,13 @@
 
 namespace Omnipay\ECPay\Tests;
 
-use Omnipay\ECPay\SkeletonGateway;
+use Omnipay\ECPay\Gateway;
 use Omnipay\Tests\GatewayTestCase;
 use Omnipay\Common\CreditCard;
 
 class GatewayTest extends GatewayTestCase
 {
-    /** @var SkeletonGateway */
+    /** @var Gateway */
     protected $gateway;
     /**
      * @var array
@@ -19,7 +19,7 @@ class GatewayTest extends GatewayTestCase
     {
         parent::setUp();
 
-        $this->gateway = new SkeletonGateway($this->getHttpClient(), $this->getHttpRequest());
+        $this->gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest());
 
         $this->options = [
             'amount' => '10.00',
@@ -27,11 +27,11 @@ class GatewayTest extends GatewayTestCase
         ];
     }
 
-    public function testAuthorize()
+    public function testPurchase()
     {
         $this->setMockHttpResponse('AuthorizeSuccess.txt');
 
-        $response = $this->gateway->authorize($this->options)->send();
+        $response = $this->gateway->purchase($this->options)->send();
 
         self::assertTrue($response->isSuccessful());
         self::assertEquals('1234', $response->getTransactionReference());

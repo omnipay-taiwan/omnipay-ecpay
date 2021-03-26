@@ -3,6 +3,7 @@
 namespace Omnipay\ECPay\Message;
 
 use Omnipay\Common\Message\AbstractRequest as BaseAbstractRequest;
+use Omnipay\ECPay\Traits\HasDefaults;
 
 /**
  * Abstract Request
@@ -10,18 +11,11 @@ use Omnipay\Common\Message\AbstractRequest as BaseAbstractRequest;
  */
 abstract class AbstractRequest extends BaseAbstractRequest
 {
+    use HasDefaults;
+
     protected $liveEndpoint = 'https://api.example.com';
     protected $testEndpoint = 'https://api-test.example.com';
 
-    public function getKey()
-    {
-        return $this->getParameter('key');
-    }
-
-    public function setKey($value)
-    {
-        return $this->setParameter('key', $value);
-    }
 
     public function sendData($data)
     {
