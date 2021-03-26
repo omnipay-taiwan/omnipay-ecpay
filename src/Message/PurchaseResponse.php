@@ -2,9 +2,6 @@
 
 namespace Omnipay\ECPay\Message;
 
-use ECPay_AllInOne as ECPay;
-use Omnipay\Common\Message\AbstractResponse;
-
 class PurchaseResponse extends AbstractResponse
 {
     /**
@@ -54,19 +51,8 @@ class PurchaseResponse extends AbstractResponse
      */
     public function getRedirectData()
     {
-        $data = $this->getData();
-        $ecPay = new ECPay();
+        $ecPay = $this->createECPay();
         $ecPay->ServiceURL = $this->getRedirectUrl();
-        $ecPay->HashKey = $data['HashKey'];
-        $ecPay->HashIV = $data['HashIV'];
-        $ecPay->MerchantID = $data['MerchantID'];
-        $ecPay->EncryptType = $data['EncryptType'];
-
-        foreach (array_keys($ecPay->Send) as $key) {
-            if (array_key_exists($key, $data) && ! empty($data[$key])) {
-                $ecPay->Send[$key] = $data[$key];
-            }
-        }
 
         return static::htmlToArray($ecPay->CheckoutString());
     }

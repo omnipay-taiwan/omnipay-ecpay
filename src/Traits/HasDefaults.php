@@ -2,27 +2,8 @@
 
 namespace Omnipay\ECPay\Traits;
 
-use Omnipay\ECPay\Gateway;
-
 trait HasDefaults
 {
-    /**
-     * @return string
-     */
-    public function getServiceURL()
-    {
-        return $this->getParameter('ServiceURL');
-    }
-
-    /**
-     * @param string $value
-     * @return Gateway
-     */
-    public function setServiceURL($value)
-    {
-        return $this->setParameter('ServiceURL', $value);
-    }
-
     /**
      * @return string
      */
@@ -33,7 +14,7 @@ trait HasDefaults
 
     /**
      * @param string $value
-     * @return Gateway
+     * @return $this
      */
     public function setHashKey($value)
     {
@@ -50,7 +31,7 @@ trait HasDefaults
 
     /**
      * @param string $value
-     * @return Gateway
+     * @return $this
      */
     public function setHashIV($value)
     {
@@ -67,7 +48,7 @@ trait HasDefaults
 
     /**
      * @param string $value
-     * @return Gateway
+     * @return $this
      */
     public function setMerchantID($value)
     {
@@ -84,7 +65,7 @@ trait HasDefaults
 
     /**
      * @param string $value
-     * @return Gateway
+     * @return $this
      */
     public function setEncryptType($value)
     {

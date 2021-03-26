@@ -8,36 +8,23 @@ use ECPay_PaymentMethod;
 use ECPay_PaymentMethodItem;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\ECPay\Traits\HasCustomFields;
 use Omnipay\ECPay\Traits\HasDefaults;
+use Omnipay\ECPay\Traits\HasMerchantTradeNo;
+use Omnipay\ECPay\Traits\HasStoreID;
 
 /**
- * Authorize Request.
- *
- * @method Response send()
+ * Purchase Request.
  */
 class PurchaseRequest extends AbstractRequest
 {
     use HasDefaults;
+    use HasMerchantTradeNo;
+    use HasStoreID;
+    use HasCustomFields;
 
     protected $liveEndpoint = 'https://payment.ecpay.com.tw/Cashier/AioCheckOut/V5';
     protected $testEndpoint = 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5';
-
-    /**
-     * @return string
-     */
-    public function getMerchantTradeNo()
-    {
-        return $this->getTransactionId();
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setMerchantTradeNo($value)
-    {
-        return $this->setTransactionId($value);
-    }
 
     /**
      * @return string
@@ -279,91 +266,6 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @return string
-     */
-    public function getStoreID()
-    {
-        return $this->getParameter('StoreID');
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setStoreID($value)
-    {
-        return $this->setParameter('StoreID', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getCustomField1()
-    {
-        return $this->getParameter('CustomField1');
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setCustomField1($value)
-    {
-        return $this->setParameter('CustomField1', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getCustomField2()
-    {
-        return $this->getParameter('CustomField2');
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setCustomField2($value)
-    {
-        return $this->setParameter('CustomField2', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getCustomField3()
-    {
-        return $this->getParameter('CustomField3');
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setCustomField3($value)
-    {
-        return $this->setParameter('CustomField3', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getCustomField4()
-    {
-        return $this->getParameter('CustomField4');
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setCustomField4($value)
-    {
-        return $this->setParameter('CustomField4', $value);
-    }
-
-    /**
      * @return int
      */
     public function getHoldTradeAMT()
@@ -408,10 +310,6 @@ class PurchaseRequest extends AbstractRequest
         }, 0);
 
         return [
-            'HashKey' => $this->getHashKey(),
-            'HashIV' => $this->getHashIV(),
-            'MerchantID' => $this->getMerchantID(),
-            'EncryptType' => $this->getEncryptType(),
             'ReturnURL' => $this->getNotifyUrl(),
             'ClientBackURL' => $this->getClientBackURL(),
             'OrderResultURL' => $this->getReturnUrl(),
@@ -438,6 +336,10 @@ class PurchaseRequest extends AbstractRequest
         ];
     }
 
+    /**
+     * @param array $data
+     * @return PurchaseResponse
+     */
     public function sendData($data)
     {
         return $this->response = new PurchaseResponse($this, $data);

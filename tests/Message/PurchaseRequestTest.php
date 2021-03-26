@@ -16,12 +16,8 @@ class PurchaseRequestTest extends TestCase
     {
         $returnUrl = 'https://foo.bar/return_url';
         $notifyUrl = 'https://foo.bar/notify_url';
-        $request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
         $options = [
-            'HashKey' => '5294y06JbISpM5x9', //測試用Hashkey，請自行帶入ECPay提供的HashKey
-            'HashIV' => 'v77hoKGq4kWxNNIS', //測試用HashIV，請自行帶入ECPay提供的HashIV
-            'MerchantID' => '2000132', //測試用MerchantID，請自行帶入ECPay提供的MerchantID
-            'EncryptType' => '1', //CheckMacValue加密類型，請固定填入1，使用SHA256加密
+
             'ReturnURL' => $notifyUrl,
             'ClientBackURL' => 'https://foo.bar/client_back_url',
             'OrderResultURL' => $returnUrl,
@@ -52,7 +48,13 @@ class PurchaseRequestTest extends TestCase
             'HoldTradeAMT' => 1,
         ];
 
-        $request->initialize($options);
+        $request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
+        $request->initialize(array_merge([
+            'HashKey' => '5294y06JbISpM5x9', //測試用Hashkey，請自行帶入ECPay提供的HashKey
+            'HashIV' => 'v77hoKGq4kWxNNIS', //測試用HashIV，請自行帶入ECPay提供的HashIV
+            'MerchantID' => '2000132', //測試用MerchantID，請自行帶入ECPay提供的MerchantID
+            'EncryptType' => '1', //CheckMacValue加密類型，請固定填入1，使用SHA256加密
+        ], $options));
         $request->setTestMode(true);
         $request->setReturnUrl($returnUrl);
         $request->setNotifyUrl($notifyUrl);
