@@ -12,7 +12,7 @@
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment processing library for
 PHP 5.3+. This package implements ecpay support for Omnipay.
 
-**Note:** Replace `omnipay-taiwan`, `:author_name`, `recca0120`, `:author_website`, `:author_email`, `ecpay`
+**Note:** Replace `omnipay-taiwan`, `recca0120`, `recca0120`, `recca0120@gmail.com`, `ecpay`
 , `:package_description` and `ecpay` with their correct values in [README.md](README.md)
 , [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE.md](LICENSE.md)
 and [composer.json](composer.json) files, then delete this line.
@@ -65,11 +65,11 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security
 
-If you discover any security related issues, please email :author_email instead of using the issue tracker.
+If you discover any security related issues, please email recca0120@gmail.com instead of using the issue tracker.
 
 ## Credits
 
-- [:author_name](https://github.com/recca0120)
+- [recca0120](https://github.com/recca0120)
 - [All Contributors](../../contributors)
 
 ## License

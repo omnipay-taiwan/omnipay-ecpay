@@ -3,6 +3,7 @@
 namespace Omnipay\ECPay\Tests\Message;
 
 use Omnipay\Common\Exception\InvalidRequestException;
+use Omnipay\Common\Message\NotificationInterface;
 use Omnipay\ECPay\Message\AcceptNotificationRequest;
 use Omnipay\Tests\TestCase;
 
@@ -44,21 +45,20 @@ class AcceptNotificationRequestTest extends TestCase
 
         self::assertEquals($options, $request->getData());
 
-        return [$request->send(), $options];
+        return [$request, $options];
     }
 
     /**
      * @depends testGetData
-     * @param $result
+     * @param $results
      */
-    public function testSendData($result)
+    public function testSendData($results)
     {
-        list($response, $options) = $result;
+        list($notification, $options) = $results;
 
-        self::assertTrue($response->isSuccessful());
-        self::assertEquals('1|OK', $response->getMessage());
-        self::assertEquals($options['RtnCode'], $response->getCode());
-        self::assertEquals($options['TradeNo'], $response->getTransactionReference());
-        self::assertEquals($options['MerchantTradeNo'], $response->getTransactionId());
+        self::assertEquals($options['MerchantTradeNo'], $notification->getTransactionId());
+        self::assertEquals($options['TradeNo'], $notification->getTransactionReference());
+        self::assertEquals(NotificationInterface::STATUS_COMPLETED, $notification->getTransactionStatus());
+        self::assertEquals('1|OK', $notification->getMessage());
     }
 }
