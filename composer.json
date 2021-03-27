@@ -1,5 +1,5 @@
 {
-    "name": "omnipay-taiwan/ecpay",
+    "name": "omnipay-taiwan/omnipay-ecpay",
     "description": "ECPay driver for the Omnipay payment processing library",
     "keywords": [
         "omnipay",
