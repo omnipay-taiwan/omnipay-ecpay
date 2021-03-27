@@ -2,15 +2,19 @@
 
 namespace Omnipay\ECPay\Message;
 
-use ECPay_ExtraPaymentInfo;
 use ECPay_InvoiceState;
 use ECPay_PaymentMethod;
-use ECPay_PaymentMethodItem;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\ECPay\Traits\HasATMFields;
+use Omnipay\ECPay\Traits\HasATMOrCVSOrBARCODEFields;
+use Omnipay\ECPay\Traits\HasCreditFields;
 use Omnipay\ECPay\Traits\HasCustomFields;
+use Omnipay\ECPay\Traits\HasCVSOrBARCODEFields;
 use Omnipay\ECPay\Traits\HasDefaults;
+use Omnipay\ECPay\Traits\HasInvoiceFields;
 use Omnipay\ECPay\Traits\HasMerchantTradeNo;
+use Omnipay\ECPay\Traits\HasSendFields;
 use Omnipay\ECPay\Traits\HasStoreID;
 
 /**
@@ -21,267 +25,20 @@ class PurchaseRequest extends AbstractRequest
     use HasDefaults;
     use HasMerchantTradeNo;
     use HasStoreID;
+    use HasSendFields;
     use HasCustomFields;
+    use HasInvoiceFields;
+    use HasCreditFields;
+    use HasATMFields;
+    use HasCVSOrBARCODEFields;
+    use HasATMOrCVSOrBARCODEFields;
 
     protected $liveEndpoint = 'https://payment.ecpay.com.tw/Cashier/AioCheckOut/V5';
     protected $testEndpoint = 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5';
 
     /**
      * @return string
-     * @throws InvalidRequestException
      */
-    public function getTotalAmount()
-    {
-        return $this->getAmount();
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setTotalAmount($value)
-    {
-        return $this->setAmount($value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getTradeDesc()
-    {
-        return $this->getDescription();
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setTradeDesc($value)
-    {
-        return $this->setDescription($value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getMerchantTradeDate()
-    {
-        return $this->getParameter('MerchantTradeDate') ?: date('Y/m/d H:i:s');
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setMerchantTradeDate($value)
-    {
-        return $this->setParameter('MerchantTradeDate', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getClientBackURL()
-    {
-        return $this->getParameter('ClientBackURL');
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setClientBackURL($value)
-    {
-        return $this->setParameter('ClientBackURL', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getOrderResultURL()
-    {
-        return $this->getParameter('OrderResultURL');
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setOrderResultURL($value)
-    {
-        return $this->setParameter('OrderResultURL', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getPaymentType()
-    {
-        return $this->getParameter('PaymentType');
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setPaymentType($value)
-    {
-        return $this->setParameter('PaymentType', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getChoosePayment()
-    {
-        return $this->getParameter('ChoosePayment') ?: ECPay_PaymentMethod::ALL;
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setChoosePayment($value)
-    {
-        return $this->setParameter('ChoosePayment', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getRemark()
-    {
-        return $this->getParameter('Remark');
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setRemark($value)
-    {
-        return $this->setParameter('Remark', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getChooseSubPayment()
-    {
-        return $this->getParameter('ChooseSubPayment') ?: ECPay_PaymentMethodItem::None;
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setChooseSubPayment($value)
-    {
-        return $this->setParameter('ChooseSubPayment', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getNeedExtraPaidInfo()
-    {
-        return $this->getParameter('NeedExtraPaidInfo') ?: ECPay_ExtraPaymentInfo::No;
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setNeedExtraPaidInfo($value)
-    {
-        return $this->setParameter('NeedExtraPaidInfo', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getDeviceSource()
-    {
-        return $this->getParameter('DeviceSource');
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setDeviceSource($value)
-    {
-        return $this->setParameter('DeviceSource', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getIgnorePayment()
-    {
-        return $this->getParameter('IgnorePayment');
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setIgnorePayment($value)
-    {
-        return $this->setParameter('IgnorePayment', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getPlatformID()
-    {
-        return $this->getParameter('PlatformID');
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setPlatformID($value)
-    {
-        return $this->setParameter('PlatformID', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getInvoiceMark()
-    {
-        return $this->getParameter('InvoiceMark') ?: ECPay_InvoiceState::No;
-    }
-
-    /**
-     * @param string $value
-     * @return PurchaseRequest
-     */
-    public function setInvoiceMark($value)
-    {
-        return $this->setParameter('InvoiceMark', $value);
-    }
-
-    /**
-     * @return int
-     */
-    public function getHoldTradeAMT()
-    {
-        return $this->getParameter('HoldTradeAMT') ?: 0;
-    }
-
-    /**
-     * @param int $value
-     * @return PurchaseRequest
-     */
-    public function setHoldTradeAMT($value)
-    {
-        return $this->setParameter('HoldTradeAMT', $value);
-    }
-
     public function getEndpoint()
     {
         return $this->getTestMode() ? $this->testEndpoint : $this->liveEndpoint;
@@ -304,12 +61,12 @@ class PurchaseRequest extends AbstractRequest
             'notifyUrl'
         );
 
-        $items = $this->getECPayItems();
+        $items = $this->prepareItems();
         $amount = array_reduce($items, static function ($sum, $item) {
             return $sum + ($item['Price'] * $item['Quantity']);
         }, 0);
 
-        return [
+        $sendFields = [
             'ReturnURL' => $this->getNotifyUrl(),
             'ClientBackURL' => $this->getClientBackURL(),
             'OrderResultURL' => $this->getReturnUrl(),
@@ -334,6 +91,8 @@ class PurchaseRequest extends AbstractRequest
             'CustomField4' => $this->getCustomField4(),
             'HoldTradeAMT' => $this->getHoldTradeAMT(),
         ];
+
+        return array_merge($sendFields, $this->getSendExtend($sendFields));
     }
 
     /**
@@ -349,7 +108,7 @@ class PurchaseRequest extends AbstractRequest
      * @return array
      * @throws InvalidRequestException
      */
-    private function getECPayItems()
+    private function prepareItems()
     {
         $items = $this->getItems();
         $currency = $this->getCurrency() ?: '元';
@@ -371,5 +130,122 @@ class PurchaseRequest extends AbstractRequest
                 'Quantity' => (int) $item->getQuantity(),
             ];
         }, $items->all());
+    }
+
+    /**
+     * @param array $sendFields
+     * @return array
+     */
+    private function getSendExtend($sendFields)
+    {
+        return static::filterValues([
+            'SendExtend' => array_merge(
+                $this->getCreditFields($sendFields['ChoosePayment']),
+                $this->getATMFields($sendFields['ChoosePayment']),
+                $this->getCvsFields($sendFields['ChoosePayment']),
+                $this->getInvoiceFields($sendFields['InvoiceMark'])
+            ),
+        ]);
+    }
+
+    /**
+     * @param string $choosePayment
+     * @return array
+     */
+    private function getCreditFields($choosePayment)
+    {
+        return in_array($choosePayment, [
+            ECPay_PaymentMethod::ALL,
+            ECPay_PaymentMethod::Credit,
+        ], true) ? static::filterValues([
+            'CreditInstallment' => $this->getCreditInstallment(),
+            'InstallmentAmount' => $this->getInstallmentAmount(),
+            'Redeem' => $this->getRedeem(),
+            'UnionPay' => $this->getUnionPay(),
+            'Language' => $this->getLanguage(),
+            'BindingCard' => $this->getBindingCard(),
+            'MerchantMemberID' => $this->getMerchantMemberID(),
+            'PeriodAmount' => $this->getPeriodAmount(),
+            'PeriodType' => $this->getPeriodType(),
+            'Frequency' => $this->getFrequency(),
+            'ExecTimes' => $this->getExecTimes(),
+            'PeriodReturnURL' => $this->getPeriodReturnURL(),
+        ]) : [];
+    }
+
+    /**
+     * @param string $choosePayment
+     * @return array
+     */
+    private function getATMFields($choosePayment)
+    {
+        return in_array($choosePayment, [
+            ECPay_PaymentMethod::ALL,
+            ECPay_PaymentMethod::ATM,
+        ], true) ? static::filterValues([
+            'ExpireDate' => $this->getExpireDate(),
+            'PaymentInfoURL' => $this->getPaymentInfoURL(),
+            'ClientRedirectURL' => $this->getClientRedirectURL(),
+        ]) : [];
+    }
+
+    /**
+     * @param string $choosePayment
+     * @return array
+     */
+    private function getCvsFields($choosePayment)
+    {
+        return in_array($choosePayment, [
+            ECPay_PaymentMethod::ALL,
+            ECPay_PaymentMethod::CVS,
+            ECPay_PaymentMethod::BARCODE,
+        ], true) ? static::filterValues([
+            'Desc_1' => $this->getDesc_1(),
+            'Desc_2' => $this->getDesc_2(),
+            'Desc_3' => $this->getDesc_3(),
+            'Desc_4' => $this->getDesc_4(),
+            'PaymentInfoURL' => $this->getPaymentInfoURL(),
+            'ClientRedirectURL' => $this->getClientRedirectURL(),
+            'StoreExpireDate' => $this->getStoreExpireDate(),
+        ]) : [];
+    }
+
+    /**
+     * @param string $invoiceMark
+     * @return array
+     */
+    private function getInvoiceFields($invoiceMark)
+    {
+        return $invoiceMark === ECPay_InvoiceState::Yes ? static::filterValues([
+            'RelateNumber' => $this->getRelateNumber(),
+            'CustomerIdentifier' => $this->getCustomerIdentifier(),
+            'CarruerType' => $this->getCarruerType(),
+            'CustomerID' => $this->getCustomerID(),
+            'Donation' => $this->getDonation(),
+            'Print' => $this->getPrint(),
+            'TaxType' => $this->getTaxType(),
+            'CustomerName' => $this->getCustomerName(),
+            'CustomerAddr' => $this->getCustomerAddr(),
+            'CustomerPhone' => $this->getCustomerPhone(),
+            'CustomerEmail' => $this->getCustomerEmail(),
+            'ClearanceMark' => $this->getClearanceMark(),
+            'CarruerNum' => $this->getCarruerNum(),
+            'LoveCode' => $this->getLoveCode(),
+            'InvoiceRemark' => $this->getInvoiceRemark(),
+            'DelayDay' => $this->getDelayDay(),
+            'InvoiceItemName' => $this->getInvoiceItemName(),
+            'InvoiceItemCount' => $this->getInvoiceItemCount(),
+            'InvoiceItemWord' => $this->getInvoiceItemWord(),
+            'InvoiceItemPrice' => $this->getInvoiceItemPrice(),
+            'InvoiceItemTaxType' => $this->getInvoiceItemTaxType(),
+            'InvType' => $this->getInvType(),
+        ]) : [];
+    }
+
+    private static function filterValues($values)
+    {
+        return array_filter($values, static function ($value) {
+            return ! empty($value);
+        });
     }
 }
