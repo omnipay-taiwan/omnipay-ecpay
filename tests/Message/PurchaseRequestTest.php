@@ -17,7 +17,6 @@ class PurchaseRequestTest extends TestCase
         $returnUrl = 'https://foo.bar/return_url';
         $notifyUrl = 'https://foo.bar/notify_url';
         $options = [
-
             'ReturnURL' => $notifyUrl,
             'ClientBackURL' => 'https://foo.bar/client_back_url',
             'OrderResultURL' => $returnUrl,
@@ -77,6 +76,7 @@ class PurchaseRequestTest extends TestCase
 
         $redirectData = $response->getRedirectData();
 
+        self::assertArrayNotHasKey('__paymentButton', $redirectData);
         self::assertFalse($response->isSuccessful());
         self::assertTrue($response->isRedirect());
         self::assertEquals('POST', $response->getRedirectMethod());

@@ -25,7 +25,6 @@ class FetchTransactionRequestTest extends TestCase
             'HashIV' => 'v77hoKGq4kWxNNIS',
             'EncryptType' => '1',
             'MerchantID' => '2000132',
-            'testMode' => true,
         ], $options));
         $request->setTestMode(true);
 

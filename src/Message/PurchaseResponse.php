@@ -2,6 +2,8 @@
 
 namespace Omnipay\ECPay\Message;
 
+use Exception;
+use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
 use Omnipay\ECPay\Traits\HasECPay;
@@ -54,13 +56,18 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
      * Gets the redirect form data array, if the redirect method is POST.
      *
      * @return array
+     * @throws InvalidRequestException
      */
     public function getRedirectData()
     {
         $ecPay = $this->createECPay($this->request);
         $ecPay->ServiceURL = $this->getRedirectUrl();
 
-        return static::htmlToArray($ecPay->CheckoutString());
+        try {
+            return static::htmlToArray($ecPay->CheckoutString());
+        } catch (Exception $e) {
+            throw new InvalidRequestException($e->getMessage(), $e->getCode(), $e);
+        }
     }
 
     /**
@@ -69,21 +76,16 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
      */
     private static function htmlToArray($html)
     {
-        preg_match_all('/<input[^>]*>/i', $html, $matches);
+        preg_match_all('/<input(?!type="submit")[^>]*>/i', $html, $matches);
 
-        if (! $matches) {
-            return [];
-        }
-
-        $data = [];
-        foreach ($matches[0] as $input) {
+        return ! $matches ? [] : array_reduce($matches[0], static function ($data, $input) {
             preg_match_all('/\s*([^=]+)=\"([^\"]*)\"*/', $input, $m);
             list($type, $name, $value) = $m[2];
             if ($type !== 'submit') {
                 $data[$name] = $value;
             }
-        }
 
-        return $data;
+            return $data;
+        }, []);
     }
 }

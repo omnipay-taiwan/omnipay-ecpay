@@ -5,6 +5,7 @@ namespace Omnipay\ECPay\Message;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Common\Message\NotificationInterface;
+use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\ECPay\Traits\HasCustomFields;
 use Omnipay\ECPay\Traits\HasDefaults;
 use Omnipay\ECPay\Traits\HasMerchantTradeNo;
@@ -236,7 +237,7 @@ class CompletePurchaseRequest extends AbstractRequest implements NotificationInt
     }
 
     /**
-     * @return NotificationInterface
+     * @return ResponseInterface
      */
     private function getNotification()
     {
