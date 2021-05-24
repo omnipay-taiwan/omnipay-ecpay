@@ -8,7 +8,7 @@ class FetchTransactionResponse extends AbstractResponse
 {
     public function isSuccessful()
     {
-        return $this->getCode() === '1';
+        return (string) $this->getCode() === '1';
     }
 
     public function getCode()

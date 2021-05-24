@@ -96,11 +96,25 @@ class GatewayTest extends GatewayTestCase
     public function testFetchTransaction()
     {
         $response = $this->gateway->fetchTransaction(array_merge($this->options, [
-            'MerchantID' => '2000132',
-            'MerchantTradeNo' => '2821567410556',
+            'transactionId' => '2821567410556',
             'TimeStamp' => time(),
         ]))->send();
 
+        self::assertTrue($response->isSuccessful());
+        self::assertEquals('1909021549160081', $response->getTransactionReference());
+        self::assertEquals('2821567410556', $response->getTransactionId());
+    }
+
+    public function testRefund()
+    {
+        $response = $this->gateway->refund(array_merge($this->options, [
+            'transactionReference' => '1909021549160081',
+            'transactionId' => '2821567410556',
+            'amount' => 1000,
+        ]))->send();
+
+        self::assertTrue($response->isSuccessful());
+        self::assertTrue($response->isSuccessful());
         self::assertTrue($response->isSuccessful());
     }
 }

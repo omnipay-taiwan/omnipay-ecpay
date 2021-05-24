@@ -12,7 +12,7 @@ trait HasECPay
      */
     protected function createECPay($request)
     {
-        $data = $this->updateGlobals($this->getData());
+        $data = $this->updateCheckMacValueFromGlobals($this->getData());
 
         $ecPay = new ECPay_AllInOne();
         $ecPay->HashKey = $request->getHashKey();
@@ -33,7 +33,7 @@ trait HasECPay
      * @param $data
      * @return mixed
      */
-    private function updateGlobals($data)
+    private function updateCheckMacValueFromGlobals($data)
     {
         if (! empty($data['CheckMacValue']) && empty($_POST['CheckMacValue'])) {
             $_POST = $data;

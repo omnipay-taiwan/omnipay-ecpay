@@ -9,22 +9,8 @@ use ECPay_PaymentMethodItem;
 
 trait HasSendFields
 {
-    /**
-     * @return string
-     */
-    public function getTotalAmount()
-    {
-        return $this->getAmount();
-    }
-
-    /**
-     * @param string $value
-     * @return this
-     */
-    public function setTotalAmount($value)
-    {
-        return $this->setAmount($value);
-    }
+    use HasTotalAmount;
+    use HasPlatformId;
 
     /**
      * @return string
@@ -211,23 +197,6 @@ trait HasSendFields
     public function setIgnorePayment($value)
     {
         return $this->setParameter('IgnorePayment', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getPlatformID()
-    {
-        return $this->getParameter('PlatformID');
-    }
-
-    /**
-     * @param string $value
-     * @return $this
-     */
-    public function setPlatformID($value)
-    {
-        return $this->setParameter('PlatformID', $value);
     }
 
     /**
