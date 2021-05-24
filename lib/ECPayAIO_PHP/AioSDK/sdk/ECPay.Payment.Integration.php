@@ -606,8 +606,6 @@ abstract class ECPay_Aio
 
     protected static function ServerPost($parameters, $ServiceURL)
     {
-        var_dump(123);
-        exit;
         $ch = curl_init();
 
         if (false === $ch) {

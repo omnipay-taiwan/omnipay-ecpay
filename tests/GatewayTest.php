@@ -33,7 +33,7 @@ class GatewayTest extends GatewayTestCase
 
     public function testPurchase()
     {
-        $response = $this->gateway->purchase($this->options)->send();
+        $response = $this->gateway->purchase(array_merge($this->options, []))->send();
 
         self::assertFalse($response->isSuccessful());
         self::assertTrue($response->isRedirect());
