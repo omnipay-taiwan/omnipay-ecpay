@@ -28,7 +28,7 @@ class RefundRequest extends AbstractRequest
 
     public function getData()
     {
-        $this->validate('transactionId', 'transactionReference');
+        $this->validate('transactionId', 'transactionReference', 'amount');
 
         return [
             'MerchantTradeNo' => $this->getTransactionId(),
@@ -40,7 +40,7 @@ class RefundRequest extends AbstractRequest
 
     public function sendData($data)
     {
-        return $this->response = new RefundResponse($this, $this->doAction($data));
+        return $this->response = new VoidOrRefundResponse($this, $this->doAction($data));
     }
 
     /**

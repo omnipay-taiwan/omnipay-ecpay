@@ -10,6 +10,7 @@ use Omnipay\ECPay\Message\CompletePurchaseRequest;
 use Omnipay\ECPay\Message\FetchTransactionRequest;
 use Omnipay\ECPay\Message\PurchaseRequest;
 use Omnipay\ECPay\Message\RefundRequest;
+use Omnipay\ECPay\Message\VoidRequest;
 use Omnipay\ECPay\Traits\HasDefaults;
 
 /**
@@ -17,7 +18,6 @@ use Omnipay\ECPay\Traits\HasDefaults;
  * @method RequestInterface authorize(array $options = [])
  * @method RequestInterface completeAuthorize(array $options = [])
  * @method RequestInterface capture(array $options = [])
- * @method RequestInterface void(array $options = [])
  * @method RequestInterface createCard(array $options = [])
  * @method RequestInterface updateCard(array $options = [])
  * @method RequestInterface deleteCard(array $options = [])
@@ -85,5 +85,10 @@ class Gateway extends AbstractGateway
     public function refund(array $options = [])
     {
         return $this->createRequest(RefundRequest::class, $options);
+    }
+
+    public function void(array $options = [])
+    {
+        return $this->createRequest(VoidRequest::class, $options);
     }
 }

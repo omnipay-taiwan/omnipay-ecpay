@@ -24,4 +24,13 @@ class StubGateway extends Gateway
     {
         return $this->createRequest(StubRefundRequest::class, $options);
     }
+
+    /**
+     * @param array $options
+     * @return RequestInterface
+     */
+    public function void(array $options = [])
+    {
+        return $this->createRequest(StubVoidRequest::class, $options);
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace Omnipay\ECPay\Message;
 
-class RefundResponse extends AbstractResponse
+class VoidOrRefundResponse extends AbstractResponse
 {
     /**
      * Is the response successful?

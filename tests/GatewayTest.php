@@ -114,7 +114,20 @@ class GatewayTest extends GatewayTestCase
         ]))->send();
 
         self::assertTrue($response->isSuccessful());
+        self::assertEquals('1909021549160081', $response->getTransactionReference());
+        self::assertEquals('2821567410556', $response->getTransactionId());
+    }
+
+    public function testVoid()
+    {
+        $response = $this->gateway->void(array_merge($this->options, [
+            'transactionReference' => '1909021549160081',
+            'transactionId' => '2821567410556',
+            'amount' => 1000,
+        ]))->send();
+
         self::assertTrue($response->isSuccessful());
-        self::assertTrue($response->isSuccessful());
+        self::assertEquals('1909021549160081', $response->getTransactionReference());
+        self::assertEquals('2821567410556', $response->getTransactionId());
     }
 }
