@@ -2,7 +2,6 @@
 
 namespace Omnipay\ECPay\Message;
 
-use ECPay_ActionType;
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\ECPay\Traits\HasDefaults;
 use Omnipay\ECPay\Traits\HasECPay;
@@ -33,7 +32,7 @@ class RefundRequest extends AbstractRequest
         return [
             'MerchantTradeNo' => $this->getTransactionId(),
             'TradeNo' => $this->getTransactionReference(),
-            'Action' => ECPay_ActionType::R,
+            'Action' => 'R',
             'TotalAmount' => $this->getAmount(),
         ];
     }

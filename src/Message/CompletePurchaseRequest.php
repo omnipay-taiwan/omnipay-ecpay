@@ -2,17 +2,21 @@
 
 namespace Omnipay\ECPay\Message;
 
+use Exception;
 use Omnipay\Common\Exception\InvalidRequestException;
+use Omnipay\Common\Exception\InvalidResponseException;
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Common\Message\NotificationInterface;
 use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\ECPay\Traits\HasCustomFields;
 use Omnipay\ECPay\Traits\HasDefaults;
+use Omnipay\ECPay\Traits\HasECPay;
 use Omnipay\ECPay\Traits\HasMerchantTradeNo;
 use Omnipay\ECPay\Traits\HasStoreID;
 
 class CompletePurchaseRequest extends AbstractRequest implements NotificationInterface
 {
+    use HasECPay;
     use HasDefaults;
     use HasMerchantTradeNo;
     use HasStoreID;
@@ -191,12 +195,13 @@ class CompletePurchaseRequest extends AbstractRequest implements NotificationInt
     /**
      * @return array
      * @throws InvalidRequestException
+     * @throws InvalidResponseException
      */
     public function getData()
     {
         $this->validate('MerchantID', 'CheckMacValue');
 
-        return [
+        return $this->checkMacValue([
             'CustomField1' => $this->getCustomField1(),
             'CustomField2' => $this->getCustomField2(),
             'CustomField3' => $this->getCustomField3(),
@@ -214,7 +219,7 @@ class CompletePurchaseRequest extends AbstractRequest implements NotificationInt
             'TradeDate' => $this->getTradeDate(),
             'TradeNo' => $this->getTransactionReference(),
             'CheckMacValue' => $this->getCheckMacValue(),
-        ];
+        ]);
     }
 
     /**
@@ -242,5 +247,22 @@ class CompletePurchaseRequest extends AbstractRequest implements NotificationInt
     private function getNotification()
     {
         return ! $this->response ? $this->send() : $this->response;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     * @throws InvalidResponseException
+     */
+    private function checkMacValue($data)
+    {
+        try {
+            $this->updateCheckMacValueFromGlobals($data);
+            $this->createECPay($this)->CheckOutFeedback();
+        } catch (Exception $e) {
+            throw new InvalidResponseException($e->getMessage(), $e->getCode(), $e);
+        }
+
+        return $data;
     }
 }

@@ -2,8 +2,6 @@
 
 namespace Omnipay\ECPay\Message;
 
-use ECPay_InvoiceState;
-use ECPay_PaymentMethod;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\ECPay\Traits\HasATMFields;
@@ -152,10 +150,7 @@ class PurchaseRequest extends AbstractRequest
      */
     private function getCreditFields($choosePayment)
     {
-        return in_array($choosePayment, [
-            ECPay_PaymentMethod::ALL,
-            ECPay_PaymentMethod::Credit,
-        ], true) ? [
+        return in_array($choosePayment, ['ALL', 'Credit'], true) ? [
             'CreditInstallment' => $this->getCreditInstallment(),
             'InstallmentAmount' => $this->getInstallmentAmount(),
             'Redeem' => $this->getRedeem(),
@@ -177,10 +172,7 @@ class PurchaseRequest extends AbstractRequest
      */
     private function getATMFields($choosePayment)
     {
-        return in_array($choosePayment, [
-            ECPay_PaymentMethod::ALL,
-            ECPay_PaymentMethod::ATM,
-        ], true) ? [
+        return in_array($choosePayment, ['ALL', 'ATM'], true) ? [
             'ExpireDate' => $this->getExpireDate(),
             'PaymentInfoURL' => $this->getPaymentInfoURL(),
             'ClientRedirectURL' => $this->getClientRedirectURL(),
@@ -193,11 +185,7 @@ class PurchaseRequest extends AbstractRequest
      */
     private function getCvsFields($choosePayment)
     {
-        return in_array($choosePayment, [
-            ECPay_PaymentMethod::ALL,
-            ECPay_PaymentMethod::CVS,
-            ECPay_PaymentMethod::BARCODE,
-        ], true) ? [
+        return in_array($choosePayment, ['ALL', 'CVS', 'BARCODE'], true) ? [
             'Desc_1' => $this->getDesc_1(),
             'Desc_2' => $this->getDesc_2(),
             'Desc_3' => $this->getDesc_3(),
@@ -214,7 +202,7 @@ class PurchaseRequest extends AbstractRequest
      */
     private function getInvoiceFields($invoiceMark)
     {
-        return $invoiceMark === ECPay_InvoiceState::Yes ? [
+        return $invoiceMark === 'Y' ? [
             'RelateNumber' => $this->getRelateNumber(),
             'CustomerIdentifier' => $this->getCustomerIdentifier(),
             'CarruerType' => $this->getCarruerType(),

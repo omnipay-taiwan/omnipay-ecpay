@@ -2,8 +2,6 @@
 
 namespace Omnipay\ECPay\Tests\Message;
 
-use ECPay_ExtraPaymentInfo;
-use ECPay_PaymentMethod;
 use Omnipay\Common\Item;
 use Omnipay\ECPay\Message\PurchaseRequest;
 use Omnipay\Tests\TestCase;
@@ -23,9 +21,9 @@ class PurchaseRequestTest extends TestCase
             'PaymentType' => 'aio',
             'TotalAmount' => 2000,
             'TradeDesc' => 'good to drink',
-            'ChoosePayment' => ECPay_PaymentMethod::Credit,
+            'ChoosePayment' => 'Credit',
             'Remark' => 'remark',
-            'NeedExtraPaidInfo' => ECPay_ExtraPaymentInfo::No,
+            'NeedExtraPaidInfo' => 'N',
             'DeviceSource' => 'Desktop',
             'Items' => [[
                 'Name' => '歐付寶黑芝麻豆漿',
@@ -42,10 +40,10 @@ class PurchaseRequestTest extends TestCase
 
         $request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
         $request->initialize(array_merge([
-            'HashKey' => '5294y06JbISpM5x9', //測試用Hashkey，請自行帶入ECPay提供的HashKey
-            'HashIV' => 'v77hoKGq4kWxNNIS', //測試用HashIV，請自行帶入ECPay提供的HashIV
-            'MerchantID' => '2000132', //測試用MerchantID，請自行帶入ECPay提供的MerchantID
-            'EncryptType' => '1', //CheckMacValue加密類型，請固定填入1，使用SHA256加密
+            'HashKey' => '5294y06JbISpM5x9',
+            'HashIV' => 'v77hoKGq4kWxNNIS',
+            'MerchantID' => '2000132',
+            'EncryptType' => '1',
         ], $options));
         $request->setTestMode(true);
         $request->setReturnUrl($returnUrl);

@@ -75,7 +75,6 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
             }
         }
 
-
         try {
             return static::htmlToArray($ecPay->CheckoutString());
         } catch (Exception $e) {
@@ -93,9 +92,8 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
 
         return ! $matches ? [] : array_reduce($matches[0], static function ($data, $input) {
             preg_match_all('/\s*([^=]+)=\"([^\"]*)\"*/', $input, $m);
-            list($type, $name, $value) = $m[2];
-            if ($type !== 'submit') {
-                $data[$name] = $value;
+            if ($m[2][0] !== 'submit') {
+                $data[$m[2][1]] = $m[2][2];
             }
 
             return $data;

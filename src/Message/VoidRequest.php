@@ -2,8 +2,6 @@
 
 namespace Omnipay\ECPay\Message;
 
-use ECPay_ActionType;
-
 class VoidRequest extends RefundRequest
 {
     public function setAction($value)
@@ -13,7 +11,7 @@ class VoidRequest extends RefundRequest
 
     public function getAction()
     {
-        return $this->getParameter('action') ?: ECPay_ActionType::N;
+        return $this->getParameter('action') ?: 'N';
     }
 
     public function getData()

@@ -2,8 +2,6 @@
 
 namespace Omnipay\ECPay\Message;
 
-use Exception;
-
 class AcceptNotificationResponse extends CompletePurchaseResponse
 {
     /**
@@ -13,12 +11,6 @@ class AcceptNotificationResponse extends CompletePurchaseResponse
      */
     public function getMessage()
     {
-        try {
-            $this->checkoutFeedback();
-
-            return '1|OK';
-        } catch (Exception $e) {
-            return '0|'.$e->getMessage();
-        }
+        return '1|OK';
     }
 }

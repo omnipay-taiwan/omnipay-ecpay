@@ -2,11 +2,6 @@
 
 namespace Omnipay\ECPay\Traits;
 
-use ECPay_ExtraPaymentInfo;
-use ECPay_InvoiceState;
-use ECPay_PaymentMethod;
-use ECPay_PaymentMethodItem;
-
 trait HasSendFields
 {
     use HasTotalAmount;
@@ -93,7 +88,7 @@ trait HasSendFields
      */
     public function getChoosePayment()
     {
-        return $this->getParameter('ChoosePayment') ?: ECPay_PaymentMethod::ALL;
+        return $this->getParameter('ChoosePayment') ?: 'ALL';
     }
 
     /**
@@ -154,7 +149,7 @@ trait HasSendFields
      */
     public function getChooseSubPayment()
     {
-        return $this->getParameter('ChooseSubPayment') ?: ECPay_PaymentMethodItem::None;
+        return $this->getParameter('ChooseSubPayment');
     }
 
     /**
@@ -198,7 +193,7 @@ trait HasSendFields
      */
     public function getNeedExtraPaidInfo()
     {
-        return $this->getParameter('NeedExtraPaidInfo') ?: ECPay_ExtraPaymentInfo::No;
+        return $this->getParameter('NeedExtraPaidInfo') ?: 'N';
     }
 
     /**
@@ -268,7 +263,7 @@ trait HasSendFields
      */
     public function getInvoiceMark()
     {
-        return $this->getParameter('InvoiceMark') ?: ECPay_InvoiceState::No;
+        return $this->getParameter('InvoiceMark');
     }
 
     /**
