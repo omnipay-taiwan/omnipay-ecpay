@@ -68,7 +68,7 @@ class AcceptNotificationRequestTest extends TestCase
     public function testInvalidCheckMacValue()
     {
         $this->expectException(InvalidResponseException::class);
-        $this->expectExceptionMessage('CheckMacValue verify fail.');
+        $this->expectExceptionMessage('CheckMacValue verify fail');
 
         $options = [
             'CustomField1' => '',

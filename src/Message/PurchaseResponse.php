@@ -60,23 +60,11 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
      */
     public function getRedirectData()
     {
-        $ecPay = $this->createECPay($this->request);
-        $ecPay->ServiceURL = $this->getRedirectUrl();
-        $data = $this->getData();
-
-        foreach (array_keys($ecPay->Send) as $key) {
-            if (empty($data[$key])) {
-                continue;
-            }
-            if (array_key_exists($key, $data)) {
-                $ecPay->Send[$key] = $data[$key];
-            } else {
-                $ecPay->SendExtend[$key] = $data[$key];
-            }
-        }
-
         try {
-            return static::htmlToArray($ecPay->CheckoutString());
+            return static::htmlToArray(
+                $this->factory($this->request, 'AutoSubmitFormWithCmvService')
+                    ->generate($this->request->getData(), $this->getRedirectUrl())
+            );
         } catch (Exception $e) {
             throw new InvalidRequestException($e->getMessage(), $e->getCode(), $e);
         }

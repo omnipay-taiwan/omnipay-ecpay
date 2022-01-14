@@ -2,8 +2,10 @@
 
 namespace Omnipay\ECPay\Message;
 
+use Ecpay\Sdk\Services\UrlService;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\ECPay\Item;
 use Omnipay\ECPay\Traits\HasATMFields;
 use Omnipay\ECPay\Traits\HasATMOrCVSOrBARCODEFields;
 use Omnipay\ECPay\Traits\HasCreditFields;
@@ -60,19 +62,25 @@ class PurchaseRequest extends AbstractRequest
         );
 
         $items = $this->prepareItems();
-        $amount = array_reduce($items, static function ($sum, $item) {
-            return $sum + ($item['Price'] * $item['Quantity']);
-        }, 0);
+        $amount = 0;
+        $itemName = '';
+        $itemURL = null;
+        foreach ($items as $item) {
+            $amount += $item->getPrice() * $item->getQuantity();
+            $itemName .= ((string) $item);
+            $itemURL = $item->getUrl();
+        }
 
         $sendFields = [
             'ReturnURL' => $this->getNotifyUrl(),
             'ClientBackURL' => $this->getClientBackURL(),
             'OrderResultURL' => $this->getReturnUrl(),
+            'MerchantID' => $this->getMerchantID(),
             'MerchantTradeNo' => $this->getTransactionId(),
             'MerchantTradeDate' => $this->getMerchantTradeDate(),
             'PaymentType' => $this->getPaymentType(),
-            'TotalAmount' => $amount,
-            'TradeDesc' => $this->getDescription(),
+            'TotalAmount' => (int) $amount,
+            'TradeDesc' => UrlService::ecpayUrlEncode($this->getDescription()),
             'ChoosePayment' => $this->getChoosePayment(),
             'Remark' => $this->getRemark(),
             'ChooseSubPayment' => $this->getChooseSubPayment(),
@@ -81,13 +89,15 @@ class PurchaseRequest extends AbstractRequest
             'IgnorePayment' => $this->getIgnorePayment(),
             'PlatformID' => $this->getPlatformID(),
             'InvoiceMark' => $this->getInvoiceMark(),
-            'Items' => $items,
+            'ItemName' => $this->getItemName() ?: mb_substr($itemName, 1, 200),
+            'ItemURL' => $this->getItemURL() ?: $itemURL,
             'StoreID' => $this->getStoreID(),
             'CustomField1' => $this->getCustomField1(),
             'CustomField2' => $this->getCustomField2(),
             'CustomField3' => $this->getCustomField3(),
             'CustomField4' => $this->getCustomField4(),
             'HoldTradeAMT' => $this->getHoldTradeAMT(),
+            'EncryptType' => $this->getEncryptType(),
         ];
 
         return static::filterValues(array_merge($sendFields, $this->getSendExtend($sendFields)));
@@ -109,24 +119,24 @@ class PurchaseRequest extends AbstractRequest
     private function prepareItems()
     {
         $items = $this->getItems();
-        $currency = $this->getCurrency() ?: '元';
+        $currency = $this->getCurrency() ?: 'TWD';
 
         if (! $items) {
-            return [[
+            return [new Item([
                 'Name' => $this->getDescription(),
                 'Price' => $this->getAmount(),
                 'Currency' => $currency,
                 'Quantity' => 1,
-            ]];
+            ])];
         }
 
         return array_map(static function ($item) use ($currency) {
-            return [
+            return $item instanceof Item ? $item : new Item([
                 'Name' => $item->getName(),
                 'Price' => (int) $item->getPrice(),
                 'Currency' => $currency,
                 'Quantity' => (int) $item->getQuantity(),
-            ];
+            ]);
         }, $items->all());
     }
 

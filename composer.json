@@ -14,17 +14,15 @@
         }
     ],
     "require": {
-        "omnipay/common": "^3.0"
+        "omnipay/common": "^3.0",
+        "ecpay/sdk": "^1.1"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
-        "omnipay/tests": "^3.0",
+        "omnipay/tests": "^3.0|^4.0",
         "squizlabs/php_codesniffer": "^3"
     },
     "autoload": {
-        "files": [
-            "src/Autoload.php"
-        ],
         "psr-4": {
             "Omnipay\\ECPay\\": "src/"
         }

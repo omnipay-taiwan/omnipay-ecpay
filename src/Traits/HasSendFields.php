@@ -282,4 +282,38 @@ trait HasSendFields
     {
         return $this->getParameter('HoldTradeAMT') ?: 0;
     }
+
+    /**
+     * @param string $value
+     * @return $this
+     */
+    public function setItemName($value)
+    {
+        return $this->setParameter('ItemName', $value);
+    }
+
+    /**
+     * @return string
+     */
+    public function getItemName()
+    {
+        return $this->getParameter('ItemName');
+    }
+
+    /**
+     * @param string $value
+     * @return $this
+     */
+    public function setItemURL($value)
+    {
+        return $this->setParameter('ItemURL', $value);
+    }
+
+    /**
+     * @return string
+     */
+    public function getItemURL()
+    {
+        return $this->getParameter('ItemURL');
+    }
 }

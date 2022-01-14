@@ -2,37 +2,23 @@
 
 namespace Omnipay\ECPay\Traits;
 
-use ECPay_AllInOne;
+use Ecpay\Sdk\Exceptions\RtnException;
+use Ecpay\Sdk\Factories\Factory;
 
 trait HasECPay
 {
     private $globalBackup = [];
 
     /**
-     * @param $request
-     * @return ECPay_AllInOne
+     * @throws RtnException
      */
-    protected function createECPay($request)
+    protected function factory($request, $class)
     {
-        $ecPay = new ECPay_AllInOne();
-        $ecPay->HashKey = $request->getHashKey();
-        $ecPay->HashIV = $request->getHashIV();
-        $ecPay->MerchantID = $request->getMerchantID();
-        $ecPay->EncryptType = $request->getEncryptType();
+        $factory = new Factory([
+            'hashKey' => $request->getHashKey(),
+            'hashIv' => $request->getHashIV(),
+        ]);
 
-        return $ecPay;
-    }
-
-    /**
-     * @param $data
-     * @return mixed
-     */
-    private function updateCheckMacValueFromGlobals($data)
-    {
-        if (array_key_exists('CheckMacValue', $data)) {
-            $_POST = array_merge($_POST, $data);
-        }
-
-        return $data;
+        return $factory->create($class);
     }
 }

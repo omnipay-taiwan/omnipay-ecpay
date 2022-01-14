@@ -2,6 +2,7 @@
 
 namespace Omnipay\ECPay\Message;
 
+use Ecpay\Sdk\Exceptions\RtnException;
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\ECPay\Traits\HasDefaults;
 use Omnipay\ECPay\Traits\HasECPay;
@@ -45,13 +46,11 @@ class RefundRequest extends AbstractRequest
     /**
      * @param array $data
      * @return array
+     * @throws RtnException
      */
     protected function doAction($data)
     {
-        $obj = $this->createECPay($this);
-        $obj->ServiceURL = 'https://payment.ecpay.com.tw/CreditDetail/DoAction';
-        $obj->Action = $data;
-
-        return $obj->DoAction();
+        return $this->factory($this, 'PostWithCmvEncodedStrResponseService')
+            ->post($data, 'https://payment.ecpay.com.tw/CreditDetail/DoAction');
     }
 }

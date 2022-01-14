@@ -2,6 +2,7 @@
 
 namespace Omnipay\ECPay\Message;
 
+use Ecpay\Sdk\Exceptions\RtnException;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\ECPay\Traits\HasDefaults;
@@ -57,15 +58,11 @@ class FetchTransactionRequest extends AbstractRequest
     /**
      * @param $data
      * @return array
+     * @throws RtnException
      */
     protected function getTradeInfo($data)
     {
-        $obj = $this->createECPay($this);
-        $obj->ServiceURL = $this->getEndpoint();
-        $obj->Query['MerchantTradeNo'] = $data['MerchantTradeNo'];
-        $obj->Query['TimeStamp'] = $data['TimeStamp'];
-
-        return $obj->QueryTradeInfo();
+        return $this->factory($this, 'PostWithCmvVerifiedEncodedStrResponseService')->post($data, $this->getEndpoint());
     }
 
     private function getEndpoint()

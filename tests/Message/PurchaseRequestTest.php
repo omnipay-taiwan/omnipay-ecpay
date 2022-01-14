@@ -2,7 +2,7 @@
 
 namespace Omnipay\ECPay\Tests\Message;
 
-use Omnipay\Common\Item;
+use Ecpay\Sdk\Services\UrlService;
 use Omnipay\ECPay\Message\PurchaseRequest;
 use Omnipay\Tests\TestCase;
 
@@ -25,17 +25,13 @@ class PurchaseRequestTest extends TestCase
             'Remark' => 'remark',
             'NeedExtraPaidInfo' => 'N',
             'DeviceSource' => 'Desktop',
-            'Items' => [[
-                'Name' => '歐付寶黑芝麻豆漿',
-                'Price' => 2000,
-                'Quantity' => 1,
-                'Currency' => '元',
-            ]],
             'CustomField1' => 'custom_field_1',
             'CustomField2' => 'custom_field_2',
             'CustomField3' => 'custom_field_3',
             'CustomField4' => 'custom_field_4',
             'HoldTradeAMT' => 1,
+            'MerchantID' => '2000132',
+            'EncryptType' => '1',
         ];
 
         $request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
@@ -48,9 +44,14 @@ class PurchaseRequestTest extends TestCase
         $request->setTestMode(true);
         $request->setReturnUrl($returnUrl);
         $request->setNotifyUrl($notifyUrl);
-        $request->setItems(array_map(static function ($item) {
-            return new Item($item);
-        }, $options['Items']));
+        $request->setItems([[
+            'Name' => '歐付寶黑芝麻豆漿',
+            'Price' => 2000,
+            'Quantity' => 1,
+            'Currency' => 'TWD',
+        ]]);
+        $options['ItemName'] = '歐付寶黑芝麻豆漿 2000 TWD x 1';
+        $options['TradeDesc'] = UrlService::ecpayUrlEncode($options['TradeDesc']);
 
         self::assertEquals($options, $request->getData());
 
