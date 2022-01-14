@@ -92,7 +92,7 @@ class PurchaseRequest extends AbstractRequest
             'HoldTradeAMT' => $this->getHoldTradeAMT(),
         ];
 
-        return array_merge($sendFields, $this->getSendExtend($sendFields));
+        return static::filterValues(array_merge($sendFields, $this->getSendExtend($sendFields)));
     }
 
     /**
@@ -138,14 +138,12 @@ class PurchaseRequest extends AbstractRequest
      */
     private function getSendExtend($sendFields)
     {
-        return static::filterValues([
-            'SendExtend' => array_merge(
-                $this->getCreditFields($sendFields['ChoosePayment']),
-                $this->getATMFields($sendFields['ChoosePayment']),
-                $this->getCvsFields($sendFields['ChoosePayment']),
-                $this->getInvoiceFields($sendFields['InvoiceMark'])
-            ),
-        ]);
+        return array_merge(
+            $this->getCreditFields($sendFields['ChoosePayment']),
+            $this->getATMFields($sendFields['ChoosePayment']),
+            $this->getCvsFields($sendFields['ChoosePayment']),
+            $this->getInvoiceFields($sendFields['InvoiceMark'])
+        );
     }
 
     /**
@@ -157,7 +155,7 @@ class PurchaseRequest extends AbstractRequest
         return in_array($choosePayment, [
             ECPay_PaymentMethod::ALL,
             ECPay_PaymentMethod::Credit,
-        ], true) ? static::filterValues([
+        ], true) ? [
             'CreditInstallment' => $this->getCreditInstallment(),
             'InstallmentAmount' => $this->getInstallmentAmount(),
             'Redeem' => $this->getRedeem(),
@@ -170,7 +168,7 @@ class PurchaseRequest extends AbstractRequest
             'Frequency' => $this->getFrequency(),
             'ExecTimes' => $this->getExecTimes(),
             'PeriodReturnURL' => $this->getPeriodReturnURL(),
-        ]) : [];
+        ] : [];
     }
 
     /**
@@ -182,11 +180,11 @@ class PurchaseRequest extends AbstractRequest
         return in_array($choosePayment, [
             ECPay_PaymentMethod::ALL,
             ECPay_PaymentMethod::ATM,
-        ], true) ? static::filterValues([
+        ], true) ? [
             'ExpireDate' => $this->getExpireDate(),
             'PaymentInfoURL' => $this->getPaymentInfoURL(),
             'ClientRedirectURL' => $this->getClientRedirectURL(),
-        ]) : [];
+        ] : [];
     }
 
     /**
@@ -199,7 +197,7 @@ class PurchaseRequest extends AbstractRequest
             ECPay_PaymentMethod::ALL,
             ECPay_PaymentMethod::CVS,
             ECPay_PaymentMethod::BARCODE,
-        ], true) ? static::filterValues([
+        ], true) ? [
             'Desc_1' => $this->getDesc_1(),
             'Desc_2' => $this->getDesc_2(),
             'Desc_3' => $this->getDesc_3(),
@@ -207,7 +205,7 @@ class PurchaseRequest extends AbstractRequest
             'PaymentInfoURL' => $this->getPaymentInfoURL(),
             'ClientRedirectURL' => $this->getClientRedirectURL(),
             'StoreExpireDate' => $this->getStoreExpireDate(),
-        ]) : [];
+        ] : [];
     }
 
     /**
@@ -216,7 +214,7 @@ class PurchaseRequest extends AbstractRequest
      */
     private function getInvoiceFields($invoiceMark)
     {
-        return $invoiceMark === ECPay_InvoiceState::Yes ? static::filterValues([
+        return $invoiceMark === ECPay_InvoiceState::Yes ? [
             'RelateNumber' => $this->getRelateNumber(),
             'CustomerIdentifier' => $this->getCustomerIdentifier(),
             'CarruerType' => $this->getCarruerType(),
@@ -239,7 +237,7 @@ class PurchaseRequest extends AbstractRequest
             'InvoiceItemPrice' => $this->getInvoiceItemPrice(),
             'InvoiceItemTaxType' => $this->getInvoiceItemTaxType(),
             'InvType' => $this->getInvType(),
-        ]) : [];
+        ] : [];
     }
 
     private static function filterValues($values)

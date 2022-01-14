@@ -3,9 +3,7 @@
 namespace Omnipay\ECPay\Tests\Message;
 
 use ECPay_ExtraPaymentInfo;
-use ECPay_InvoiceState;
 use ECPay_PaymentMethod;
-use ECPay_PaymentMethodItem;
 use Omnipay\Common\Item;
 use Omnipay\ECPay\Message\PurchaseRequest;
 use Omnipay\Tests\TestCase;
@@ -27,19 +25,14 @@ class PurchaseRequestTest extends TestCase
             'TradeDesc' => 'good to drink',
             'ChoosePayment' => ECPay_PaymentMethod::Credit,
             'Remark' => 'remark',
-            'ChooseSubPayment' => ECPay_PaymentMethodItem::None,
             'NeedExtraPaidInfo' => ECPay_ExtraPaymentInfo::No,
             'DeviceSource' => 'Desktop',
-            'IgnorePayment' => 'ignore_payment',
-            'PlatformID' => uniqid('platform_id', true),
-            'InvoiceMark' => ECPay_InvoiceState::No,
             'Items' => [[
                 'Name' => '歐付寶黑芝麻豆漿',
                 'Price' => 2000,
                 'Quantity' => 1,
                 'Currency' => '元',
             ]],
-            'StoreID' => uniqid('store_id', true),
             'CustomField1' => 'custom_field_1',
             'CustomField2' => 'custom_field_2',
             'CustomField3' => 'custom_field_3',
@@ -81,6 +74,6 @@ class PurchaseRequestTest extends TestCase
         self::assertTrue($response->isRedirect());
         self::assertEquals('POST', $response->getRedirectMethod());
         self::assertEquals('https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5', $response->getRedirectUrl());
-        self::assertNotEmpty('EB947B8C27DBF00C0129C83E9E5C6', $redirectData['CheckMacValue']);
+        self::assertNotEmpty($redirectData['CheckMacValue']);
     }
 }

@@ -62,6 +62,19 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
     {
         $ecPay = $this->createECPay($this->request);
         $ecPay->ServiceURL = $this->getRedirectUrl();
+        $data = $this->getData();
+
+        foreach (array_keys($ecPay->Send) as $key) {
+            if (empty($data[$key])) {
+                continue;
+            }
+            if (array_key_exists($key, $data)) {
+                $ecPay->Send[$key] = $data[$key];
+            } else {
+                $ecPay->SendExtend[$key] = $data[$key];
+            }
+        }
+
 
         try {
             return static::htmlToArray($ecPay->CheckoutString());
