@@ -243,6 +243,7 @@ class CompletePurchaseRequest extends AbstractRequest implements NotificationInt
 
     /**
      * @return ResponseInterface
+     * @throws InvalidResponseException
      */
     private function getNotification()
     {
