@@ -225,9 +225,16 @@ class CompletePurchaseRequest extends AbstractRequest implements NotificationInt
     /**
      * @param array $data
      * @return CompletePurchaseResponse
+     * @throws InvalidResponseException
      */
     public function sendData($data)
     {
+        try {
+            $this->createECPay($this)->CheckOutFeedback();
+        } catch (Exception $e) {
+            throw new InvalidResponseException($e->getMessage(), $e->getCode(), $e);
+        }
+
         return $this->response = new CompletePurchaseResponse($this, $data);
     }
 
