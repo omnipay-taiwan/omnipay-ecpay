@@ -2,14 +2,16 @@
 
 namespace Omnipay\ECPay\Message;
 
-class AcceptNotificationResponse extends CompletePurchaseResponse
+use Omnipay\Common\Message\NotificationInterface;
+
+class AcceptNotificationResponse extends CompletePurchaseResponse implements NotificationInterface
 {
-    /**
-     * Response Message.
-     *
-     * @return null|string A response message from the payment gateway
-     */
-    public function getMessage()
+    public function getTransactionStatus()
+    {
+        return $this->isSuccessful() ? self::STATUS_COMPLETED : self::STATUS_FAILED;
+    }
+
+    public function getReply()
     {
         return '1|OK';
     }

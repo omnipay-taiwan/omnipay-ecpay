@@ -90,7 +90,8 @@ class GatewayTest extends GatewayTestCase
         ]))->send();
 
         self::assertTrue($response->isSuccessful());
-        self::assertEquals('1|OK', $response->getMessage());
+        self::assertEquals('Succeeded', $response->getMessage());
+        self::assertEquals('1|OK', $response->getReply());
     }
 
     public function testFetchTransaction()

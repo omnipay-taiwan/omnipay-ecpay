@@ -6,6 +6,17 @@ use Omnipay\Common\Item as BaseItem;
 
 class Item extends BaseItem
 {
+    public function __toString()
+    {
+        return sprintf(
+            '#%s %d %s x %u',
+            $this->getName(),
+            $this->getPrice(),
+            $this->getCurrency(),
+            $this->getQuantity()
+        );
+    }
+
     public function getCurrency()
     {
         return $this->getParameter('currency') ?: 'TWD';
@@ -24,16 +35,5 @@ class Item extends BaseItem
     public function setUrl($value)
     {
         return $this->setParameter('url', $value);
-    }
-
-    public function __toString()
-    {
-        return sprintf(
-            '#%s %d %s x %u',
-            $this->getName(),
-            $this->getPrice(),
-            $this->getCurrency(),
-            $this->getQuantity()
-        );
     }
 }

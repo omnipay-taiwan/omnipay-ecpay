@@ -2,9 +2,7 @@
 
 namespace Omnipay\ECPay\Message;
 
-use Omnipay\Common\Message\NotificationInterface;
-
-class CompletePurchaseResponse extends AbstractResponse implements NotificationInterface
+class CompletePurchaseResponse extends AbstractResponse
 {
     public function isSuccessful()
     {
@@ -19,10 +17,5 @@ class CompletePurchaseResponse extends AbstractResponse implements NotificationI
     public function getMessage()
     {
         return $this->data['RtnMsg'];
-    }
-
-    public function getTransactionStatus()
-    {
-        return $this->isSuccessful() ? self::STATUS_COMPLETED : self::STATUS_FAILED;
     }
 }

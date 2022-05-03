@@ -7,15 +7,13 @@ use Exception;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Exception\InvalidResponseException;
 use Omnipay\Common\Message\AbstractRequest;
-use Omnipay\Common\Message\NotificationInterface;
-use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\ECPay\Traits\HasCustomFields;
 use Omnipay\ECPay\Traits\HasDefaults;
 use Omnipay\ECPay\Traits\HasECPay;
 use Omnipay\ECPay\Traits\HasMerchantTradeNo;
 use Omnipay\ECPay\Traits\HasStoreID;
 
-class CompletePurchaseRequest extends AbstractRequest implements NotificationInterface
+class CompletePurchaseRequest extends AbstractRequest
 {
     use HasECPay;
     use HasDefaults;
@@ -237,25 +235,6 @@ class CompletePurchaseRequest extends AbstractRequest implements NotificationInt
         }
 
         return $this->response = new CompletePurchaseResponse($this, $data);
-    }
-
-    public function getTransactionStatus()
-    {
-        return $this->getNotification()->getTransactionStatus();
-    }
-
-    public function getMessage()
-    {
-        return $this->getNotification()->getMessage();
-    }
-
-    /**
-     * @return ResponseInterface
-     * @throws InvalidResponseException
-     */
-    private function getNotification()
-    {
-        return ! $this->response ? $this->send() : $this->response;
     }
 
     /**
