@@ -60,11 +60,12 @@ class PurchaseRequestTest extends TestCase
 
     /**
      * @depends testGetData
-     * @param array $results
+     *
+     * @param  array  $results
      */
     public function testSendData($results)
     {
-        list($response) = $results;
+        [$response] = $results;
 
         $redirectData = $response->getRedirectData();
 

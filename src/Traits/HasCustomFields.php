@@ -10,7 +10,7 @@ trait HasCustomFields
      * 提供合作廠商使用記錄用客製化使用欄位
      * 注意事項: 特殊符號只支援,.#()$[];%{}:/?&@<>!
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setCustomField1($value)
@@ -32,7 +32,7 @@ trait HasCustomFields
      * 提供合作廠商使用記錄用客製化使用欄位
      * 注意事項: 特殊符號只支援,.#()$[];%{}:/?&@<>!
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setCustomField2($value)
@@ -54,7 +54,7 @@ trait HasCustomFields
      * 提供合作廠商使用記錄用客製化使用欄位
      * 注意事項: 特殊符號只支援,.#()$[];%{}:/?&@<>!
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setCustomField3($value)
@@ -76,7 +76,7 @@ trait HasCustomFields
      * 提供合作廠商使用記錄用客製化使用欄位
      * 注意事項: 特殊符號只支援,.#()$[];%{}:/?&@<>!
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setCustomField4($value)

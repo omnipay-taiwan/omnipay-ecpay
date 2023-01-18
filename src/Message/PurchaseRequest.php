@@ -34,6 +34,7 @@ class PurchaseRequest extends AbstractRequest
     use HasATMOrCVSOrBARCODEFields;
 
     protected $liveEndpoint = 'https://payment.ecpay.com.tw/Cashier/AioCheckOut/V5';
+
     protected $testEndpoint = 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5';
 
     /**
@@ -46,6 +47,7 @@ class PurchaseRequest extends AbstractRequest
 
     /**
      * @return array
+     *
      * @throws InvalidRequestException
      */
     public function getData()
@@ -104,7 +106,7 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return PurchaseResponse
      */
     public function sendData($data)
@@ -114,6 +116,7 @@ class PurchaseRequest extends AbstractRequest
 
     /**
      * @return array
+     *
      * @throws InvalidRequestException
      */
     private function prepareItems()
@@ -141,7 +144,7 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param array $sendFields
+     * @param  array  $sendFields
      * @return array
      */
     private function getSendExtend($sendFields)
@@ -155,7 +158,7 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param string $choosePayment
+     * @param  string  $choosePayment
      * @return array
      */
     private function getCreditFields($choosePayment)
@@ -177,7 +180,7 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param string $choosePayment
+     * @param  string  $choosePayment
      * @return array
      */
     private function getATMFields($choosePayment)
@@ -190,7 +193,7 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param string $choosePayment
+     * @param  string  $choosePayment
      * @return array
      */
     private function getCvsFields($choosePayment)
@@ -207,7 +210,7 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param string $invoiceMark
+     * @param  string  $invoiceMark
      * @return array
      */
     private function getInvoiceFields($invoiceMark)

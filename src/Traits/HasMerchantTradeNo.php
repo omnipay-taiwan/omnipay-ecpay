@@ -9,7 +9,7 @@ trait HasMerchantTradeNo
      *
      * 特店交易編號均為唯一值，不可重複使用。英數字大小寫混合如何避免訂單編號重複請參考 FAQ
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setMerchantTradeNo($value)

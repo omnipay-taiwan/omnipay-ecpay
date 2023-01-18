@@ -7,7 +7,7 @@ use Omnipay\ECPay\Message\VoidRequest;
 class StubVoidRequest extends VoidRequest
 {
     /**
-     * @param array $data
+     * @param  array  $data
      * @return array
      */
     protected function doAction($data)

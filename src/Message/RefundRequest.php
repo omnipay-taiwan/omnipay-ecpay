@@ -44,8 +44,9 @@ class RefundRequest extends AbstractRequest
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return array
+     *
      * @throws RtnException
      */
     protected function doAction($data)

@@ -56,6 +56,7 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
      * Gets the redirect form data array, if the redirect method is POST.
      *
      * @return array
+     *
      * @throws InvalidRequestException
      */
     public function getRedirectData()
@@ -71,7 +72,7 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
     }
 
     /**
-     * @param string $html
+     * @param  string  $html
      * @return array
      */
     private static function htmlToArray($html)

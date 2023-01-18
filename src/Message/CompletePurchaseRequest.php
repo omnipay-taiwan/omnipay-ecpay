@@ -30,7 +30,7 @@ class CompletePurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setPaymentDate($value)
@@ -47,7 +47,7 @@ class CompletePurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setPaymentType($value)
@@ -64,7 +64,7 @@ class CompletePurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setPaymentTypeChargeFee($value)
@@ -81,7 +81,7 @@ class CompletePurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setRtnCode($value)
@@ -98,7 +98,7 @@ class CompletePurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setRtnMsg($value)
@@ -115,7 +115,7 @@ class CompletePurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setSimulatePaid($value)
@@ -132,7 +132,7 @@ class CompletePurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setTradeAmt($value)
@@ -149,7 +149,7 @@ class CompletePurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setTradeDate($value)
@@ -166,7 +166,7 @@ class CompletePurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setTradeNo($value)
@@ -183,7 +183,7 @@ class CompletePurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setCheckMacValue($value)
@@ -193,6 +193,7 @@ class CompletePurchaseRequest extends AbstractRequest
 
     /**
      * @return array
+     *
      * @throws InvalidRequestException
      * @throws InvalidResponseException
      */
@@ -222,8 +223,9 @@ class CompletePurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return CompletePurchaseResponse
+     *
      * @throws InvalidResponseException
      */
     public function sendData($data)
@@ -238,8 +240,9 @@ class CompletePurchaseRequest extends AbstractRequest
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return array
+     *
      * @throws InvalidResponseException
      */
     private function checkMacValue($data)

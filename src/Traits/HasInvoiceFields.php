@@ -10,7 +10,7 @@ trait HasInvoiceFields
     /**
      * 特店自訂編號
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setRelateNumber($value)
@@ -29,7 +29,7 @@ trait HasInvoiceFields
     /**
      * 客戶編號
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setCustomerID($value)
@@ -48,7 +48,7 @@ trait HasInvoiceFields
     /**
      * 統一編號
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setCustomerIdentifier($value)
@@ -67,7 +67,7 @@ trait HasInvoiceFields
     /**
      * 客戶名稱.
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setCustomerName($value)
@@ -86,7 +86,7 @@ trait HasInvoiceFields
     /**
      * 客戶地址
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setCustomerAddr($value)
@@ -107,7 +107,7 @@ trait HasInvoiceFields
      *
      * 當課稅類別[TaxType]為2(零稅率)時，則該參數請帶1(非經海關出口)或2(經海關出口)。
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setCustomerPhone($value)
@@ -126,7 +126,7 @@ trait HasInvoiceFields
     /**
      * 客戶電子信箱.
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setCustomerEmail($value)
@@ -147,7 +147,7 @@ trait HasInvoiceFields
      *
      * 當課稅類別[TaxType]為2(零稅率)時，則該參數請帶1(非經海關出口)或2(經海關出口)。
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setClearanceMark($value)
@@ -171,7 +171,7 @@ trait HasInvoiceFields
      * 若為免稅，請帶 3。
      * 若為混合應稅與免稅或零稅率時(限收銀機發票無法分辨時使用，且需通過申請核可)，則請帶 9。
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setTaxType($value)
@@ -197,7 +197,7 @@ trait HasInvoiceFields
      * 若統一編號[CustomerIdentifier]有值時，則載具類別不可為特店載具或自然人憑證載具。
      * 注意事項:當[Print]有值時，載具類別不得有值。
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setCarruerType($value)
@@ -225,7 +225,7 @@ trait HasInvoiceFields
      * 2. 英文、數字、符號僅接受半形字
      * 3. 若載具編號為手機條碼載具時，請 先呼叫 B2C 電子發票介接技術文件手機條碼載驗證 API 進行檢核
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setCarruerNum($value)
@@ -246,7 +246,7 @@ trait HasInvoiceFields
      *
      * 若為捐贈時，參數請帶:1。若為不捐贈或統一編號[CustomerIdentifier]有值時，參數請帶:0。
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setDonation($value)
@@ -269,7 +269,7 @@ trait HasInvoiceFields
      * 1. 若捐贈註記[Donation]= '1' (捐贈)時，此欄位須有值。
      * 2. 捐贈碼以阿拉伯數字為限，最少三碼，最多七碼。內容定位採「文字格式」，首位可以為零。
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setLoveCode($value)
@@ -291,7 +291,7 @@ trait HasInvoiceFields
      * 若為不列印或捐贈註記[Donation]為1(捐贈)時，請帶:0。
      * 若為列印或統一編號[CustomerIdentifier]有值時，請帶:1。
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setPrint($value)
@@ -313,7 +313,7 @@ trait HasInvoiceFields
      * 預設不可為空字串且格式為名稱 1 | 名稱 2 | 名稱 3 | ... | 名稱 n，當含有 二筆或以上的商品名稱時，則以「|」符號區隔。
      * 將參數值以 UrlEncode 方式編碼。
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setInvoiceItemName($value)
@@ -334,7 +334,7 @@ trait HasInvoiceFields
      *
      * 預設不可為空字串且格式為數量 1 | 數量 2 | 數量 3 | ... | 數量 n，當含有 二筆或以上的商品名稱時，則以「|」符號區隔。
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setInvoiceItemCount($value)
@@ -355,7 +355,7 @@ trait HasInvoiceFields
      *
      * 商品單位若超過二筆以上請以「|」符號區隔單位最大長度為 6 碼。
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setInvoiceItemWord($value)
@@ -376,7 +376,7 @@ trait HasInvoiceFields
      *
      * 預設不可為空字串且格式為價格 1 | 價格 2 | 價格 3 | ... | 價格 n，當含有 二筆或以上的商品價格時，則以「|」符號區隔。
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setInvoiceItemPrice($value)
@@ -404,7 +404,7 @@ trait HasInvoiceFields
      * 3. 課稅類別為混合稅率時，需含二筆 或以上的商品課稅別 [InvoiceItemTaxType]，且至少需有一筆商品課稅別為應稅及至少需有一筆商品課稅別為免稅或零稅率，
      * 即混稅發票只能 1.應稅+免稅 2.應稅+零稅率，免稅和零稅率發票不能同時開立。
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setInvoiceItemTaxType($value)
@@ -423,7 +423,7 @@ trait HasInvoiceFields
     /**
      * 備註.
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setInvoiceRemark($value)
@@ -445,7 +445,7 @@ trait HasInvoiceFields
      * 本參數值請帶 0~15(天)，
      * 當天數為 0 時，則付款完成後立即開立發票。
      *
-     * @param int $value
+     * @param  int  $value
      * @return $this
      */
     public function setDelayDay($value)
@@ -466,7 +466,7 @@ trait HasInvoiceFields
      *
      * 若為一般稅額時，請帶07。 預設值:07
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setInvType($value)

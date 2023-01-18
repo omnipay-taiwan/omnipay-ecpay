@@ -7,7 +7,7 @@ trait HasStoreID
     /**
      * 特店旗下店舖代號
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setStoreID($value)

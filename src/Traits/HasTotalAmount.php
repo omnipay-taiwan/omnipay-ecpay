@@ -7,7 +7,7 @@ trait HasTotalAmount
     /**
      * 交易金額.
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setTotalAmount($value)

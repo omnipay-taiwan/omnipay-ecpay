@@ -11,7 +11,7 @@ trait HasATMOrCVSOrBARCODEFields
      * 請參考[ATM、CVS 或 BARCODE 的取號 結果通知.]
      * 注意事項: 頁面將會停留在綠界，顯示繳費的相關 資訊。回傳只有三段號碼，並不會回傳條碼圖，需自行轉換成 code39 的三段條碼。
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setPaymentInfoURL($value)
@@ -36,7 +36,7 @@ trait HasATMOrCVSOrBARCODEFields
      *
      * 若導回網址未使用 https 時，部份瀏覽 器可能會出現警告訊息。回傳只有三段號碼，並不會回傳條碼圖，需自行轉換成 code39 的三段條碼。
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setClientRedirectURL($value)

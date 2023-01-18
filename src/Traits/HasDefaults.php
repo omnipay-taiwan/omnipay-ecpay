@@ -7,7 +7,7 @@ trait HasDefaults
     /**
      * 特店編號(由綠界提供).
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setMerchantID($value)
@@ -24,7 +24,7 @@ trait HasDefaults
     }
 
     /**
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setHashKey($value)
@@ -41,7 +41,7 @@ trait HasDefaults
     }
 
     /**
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setHashIV($value)
@@ -62,7 +62,7 @@ trait HasDefaults
      *
      * 請固定填入 1，使用 SHA256 加密。
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setEncryptType($value)

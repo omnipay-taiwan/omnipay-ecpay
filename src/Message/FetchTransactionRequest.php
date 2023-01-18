@@ -16,6 +16,7 @@ class FetchTransactionRequest extends AbstractRequest
     use HasMerchantTradeNo;
 
     protected $liveEndpoint = 'https://payment.ecpay.com.tw/Cashier/QueryTradeInfo/V5';
+
     protected $testEndpoint = 'https://payment-stage.ecpay.com.tw/Cashier/QueryTradeInfo/V5';
 
     /**
@@ -27,7 +28,7 @@ class FetchTransactionRequest extends AbstractRequest
     }
 
     /**
-     * @param int $value
+     * @param  int  $value
      * @return FetchTransactionRequest
      */
     public function setTimestamp($value)
@@ -37,6 +38,7 @@ class FetchTransactionRequest extends AbstractRequest
 
     /**
      * @return array
+     *
      * @throws InvalidRequestException
      */
     public function getData()
@@ -58,6 +60,7 @@ class FetchTransactionRequest extends AbstractRequest
     /**
      * @param $data
      * @return array
+     *
      * @throws RtnException
      */
     protected function getTradeInfo($data)

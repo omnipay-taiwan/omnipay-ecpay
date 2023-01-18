@@ -11,7 +11,7 @@ trait HasATMFields
      * 注意事項:
      * 以天為單位
      *
-     * @param int $value
+     * @param  int  $value
      * @return $this
      */
     public function setExpireDate($value)

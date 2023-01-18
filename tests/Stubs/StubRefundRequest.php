@@ -7,7 +7,7 @@ use Omnipay\ECPay\Message\RefundRequest;
 class StubRefundRequest extends RefundRequest
 {
     /**
-     * @param array $data
+     * @param  array  $data
      * @return array
      */
     protected function doAction($data)

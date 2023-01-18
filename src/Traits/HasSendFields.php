@@ -11,7 +11,7 @@ trait HasSendFields
      * 特店交易時間
      * 格式為: yyyy/MM/dd HH:mm:ss.
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setMerchantTradeDate($value)
@@ -32,7 +32,7 @@ trait HasSendFields
      *
      * 請固定填入 aio
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setPaymentType($value)
@@ -51,7 +51,7 @@ trait HasSendFields
     /**
      * 交易描述.
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setTradeDesc($value)
@@ -75,7 +75,7 @@ trait HasSendFields
      * BARCODE:超商條碼 ALL:不指定付款方式，由綠界顯示付款 方式選擇頁面。
      * 注意事項: 1.若為手機版時不支援下列付款方式: WebATM:網路 ATM 2.如需要不透過綠界畫面取得 ATM、 CVS、BARCODE 的繳費代碼，請參考 FAQ。
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setChoosePayment($value)
@@ -94,7 +94,7 @@ trait HasSendFields
     /**
      * Client 端返回特店的按鈕連結.
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setClientBackURL($value)
@@ -113,7 +113,7 @@ trait HasSendFields
     /**
      * 備註欄位.
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setRemark($value)
@@ -136,7 +136,7 @@ trait HasSendFields
      * 依設定的付款方式及付款子項目帶入訂單，無法選擇其他付款子項目。
      * 請參考付款方式一覽表
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setChooseSubPayment($value)
@@ -155,7 +155,7 @@ trait HasSendFields
     /**
      * Client 端回傳付款結果網址
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setOrderResultURL($value)
@@ -180,7 +180,7 @@ trait HasSendFields
      * 付款完成後綠界會以 Server POST 方式回傳額外付款資訊。
      * 注意事項: 回傳額外付款資訊參數請參考-額外回傳的參數
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setNeedExtraPaidInfo($value)
@@ -201,7 +201,7 @@ trait HasSendFields
      *
      * 請帶空值，由系統自動判定。
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setDeviceSource($value)
@@ -228,7 +228,7 @@ trait HasSendFields
      * CVS:超商代碼
      * BARCODE:超商條碼
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setIgnorePayment($value)
@@ -250,7 +250,7 @@ trait HasSendFields
      * 此參數為付款完成後同時開立電子發票。若要使用時，該參數須設定為「Y」，同時還要設定「電子發票介接相關參數」
      * 注意事項: 正式環境欲使用電子發票功能，須與綠界申請開通，若未開通請致電客服中心 (02) 2655-1775。
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setInvoiceMark($value)
@@ -267,7 +267,7 @@ trait HasSendFields
     }
 
     /**
-     * @param int $value
+     * @param  int  $value
      * @return $this
      */
     public function setHoldTradeAMT($value)
@@ -284,7 +284,7 @@ trait HasSendFields
     }
 
     /**
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setItemName($value)
@@ -301,7 +301,7 @@ trait HasSendFields
     }
 
     /**
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setItemURL($value)

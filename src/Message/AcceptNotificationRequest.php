@@ -7,7 +7,7 @@ use Omnipay\Common\Message\NotificationInterface;
 class AcceptNotificationRequest extends CompletePurchaseRequest implements NotificationInterface
 {
     /**
-     * @param array $data
+     * @param  array  $data
      * @return AcceptNotificationResponse
      */
     public function sendData($data)

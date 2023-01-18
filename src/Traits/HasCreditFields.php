@@ -16,7 +16,7 @@ trait HasCreditFields
      * JPN:日語
      * CHI:簡體中文
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setLanguage($value)
@@ -38,7 +38,7 @@ trait HasCreditFields
      * 提供刷卡分期期數信用卡分期可用參數為:3,6,12,18,24
      * 注意事項: 使用的期數必須先透過申請開通後方能使用，並以申請開通的期數為主。
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setCreditInstallment($value)
@@ -62,7 +62,7 @@ trait HasCreditFields
      * 交易金額[TotalAmount]設定金額必須和 授權金額[PeriodAmount]相同。
      * 請帶整數，不可有小數點。僅限新台幣。
      *
-     * @param int $value
+     * @param  int  $value
      * @return $this
      */
     public function setPeriodAmount($value)
@@ -86,7 +86,7 @@ trait HasCreditFields
      * M:以月為週期
      * Y:以年為週期
      *
-     * @param stirng $value
+     * @param  stirng  $value
      * @return $this
      */
     public function setPeriodType($value)
@@ -111,7 +111,7 @@ trait HasCreditFields
      * 當 PeriodType 設為 M 時，最多可設 12 次。
      * 當 PeriodType 設為 Y 時，最多可設 1 次
      *
-     * @param int $value
+     * @param  int  $value
      * @return $this
      */
     public function setFrequency($value)
@@ -137,7 +137,7 @@ trait HasCreditFields
      * 當 PeriodType 設為 M 時，最多可設 99 次。
      * 當 PeriodType 設為 Y 時，最多可設 9 次。
      *
-     * @param int $value
+     * @param  int  $value
      * @return $this
      */
     public function setExecTimes($value)
@@ -156,7 +156,7 @@ trait HasCreditFields
     /**
      * 定期定額的執行結果回應 URL.
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setPeriodReturnURL($value)
@@ -179,7 +179,7 @@ trait HasCreditFields
      * 使用: 請傳 1
      * 不使用:請傳 0
      *
-     * @param int $value
+     * @param  int  $value
      * @return $this
      */
     public function setBindingCard($value)
@@ -198,7 +198,7 @@ trait HasCreditFields
     /**
      * 記憶卡號識別碼
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setMerchantMemberID($value)
@@ -220,7 +220,7 @@ trait HasCreditFields
      * 設為 Y 時，當綠界特店選擇信用卡付款時，會進入紅利折抵的交易流程。
      * 注意事項: 紅利折抵請參考信用卡紅利折抵辦法
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setRedeem($value)
@@ -249,7 +249,7 @@ trait HasCreditFields
      * 3.不支援信用卡紅利折抵
      * 4.不支援信用卡記憶卡號功能
      *
-     * @param int $value
+     * @param  int  $value
      * @return $this
      */
     public function setUnionPay($value)

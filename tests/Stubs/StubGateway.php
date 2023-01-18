@@ -8,7 +8,7 @@ use Omnipay\ECPay\Gateway;
 class StubGateway extends Gateway
 {
     /**
-     * @param array $options
+     * @param  array  $options
      * @return RequestInterface
      */
     public function fetchTransaction(array $options = [])
@@ -17,7 +17,7 @@ class StubGateway extends Gateway
     }
 
     /**
-     * @param array $options
+     * @param  array  $options
      * @return RequestInterface
      */
     public function refund(array $options = [])
@@ -26,7 +26,7 @@ class StubGateway extends Gateway
     }
 
     /**
-     * @param array $options
+     * @param  array  $options
      * @return RequestInterface
      */
     public function void(array $options = [])

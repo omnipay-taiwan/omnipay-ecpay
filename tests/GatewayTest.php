@@ -10,6 +10,7 @@ class GatewayTest extends GatewayTestCase
 {
     /** @var Gateway */
     protected $gateway;
+
     /**
      * @var array
      */

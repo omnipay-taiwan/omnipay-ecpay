@@ -35,11 +35,12 @@ class FetchTransactionRequestTest extends TestCase
 
     /**
      * @depends testGetData
+     *
      * @param $result
      */
     public function testSendData($result)
     {
-        list($response, $options) = $result;
+        [$response, $options] = $result;
         self::assertTrue($response->isSuccessful());
         self::assertEquals('1', $response->getCode());
         self::assertEquals('1909021549160081', $response->getTransactionReference());

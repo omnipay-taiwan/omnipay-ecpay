@@ -17,7 +17,7 @@ trait HasCVSOrBARCODEFields
      * 提醒您，CVS 帶入數值不可超過 86400 分鐘，超過時一律以 86400 分鐘計(60 天)
      * 例:08/01 的 20:15 分購買商品，繳費期限為 7 天，表示 8/08 的 20:15 分前您必須前往超商繳費。
      *
-     * @param int $value
+     * @param  int  $value
      * @return $this
      */
     public function setStoreExpireDate($value)
@@ -38,7 +38,7 @@ trait HasCVSOrBARCODEFields
      *
      * 若繳費超商為family(全家)或ibon(7-11) 時，會顯示在超商繳費平台螢幕上
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setDesc_1($value)
@@ -59,7 +59,7 @@ trait HasCVSOrBARCODEFields
      *
      * 若繳費超商為family(全家)或ibon(7-11) 時，會顯示在超商繳費平台螢幕上
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setDesc_2($value)
@@ -80,7 +80,7 @@ trait HasCVSOrBARCODEFields
      *
      * 若繳費超商為family(全家)或ibon(7-11) 時，會顯示在超商繳費平台螢幕上
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setDesc_3($value)
@@ -101,7 +101,7 @@ trait HasCVSOrBARCODEFields
      *
      * 若繳費超商為family(全家)或ibon(7-11) 時，會顯示在超商繳費平台螢幕上
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function setDesc_4($value)
