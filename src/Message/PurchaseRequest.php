@@ -244,10 +244,7 @@ class PurchaseRequest extends AbstractRequest
     private static function filterValues($values)
     {
         return array_filter($values, static function ($value) {
-            if (is_numeric($value)) {
-                return true;
-            }
-            return ! empty($value);
+            return is_numeric($value) || ! empty($value);
         });
     }
 }
