@@ -51,8 +51,6 @@ class CompletePurchaseRequestTest extends TestCase
 
     /**
      * @depends testGetData
-     *
-     * @param $result
      */
     public function testSendData($result)
     {

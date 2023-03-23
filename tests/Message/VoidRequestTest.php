@@ -22,7 +22,7 @@ class VoidRequestTest extends TestCase
             'MerchantTradeNo' => '2821567410556',
             'TradeNo' => '1909021549160081',
             'Action' => 'N',
-            'TotalAmount' => '1000.00',
+            'TotalAmount' => '1000',
         ], $request->getData());
     }
 }

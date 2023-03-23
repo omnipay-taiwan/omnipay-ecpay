@@ -4,6 +4,7 @@ namespace Omnipay\ECPay\Message;
 
 use Ecpay\Sdk\Exceptions\RtnException;
 use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\ECPay\Traits\HasAmount;
 use Omnipay\ECPay\Traits\HasDefaults;
 use Omnipay\ECPay\Traits\HasECPay;
 use Omnipay\ECPay\Traits\HasMerchantTradeNo;
@@ -15,6 +16,7 @@ class RefundRequest extends AbstractRequest
     use HasDefaults;
     use HasMerchantTradeNo;
     use HasTotalAmount;
+    use HasAmount;
 
     public function setTradeNo($value)
     {

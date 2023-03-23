@@ -58,7 +58,6 @@ class FetchTransactionRequest extends AbstractRequest
     }
 
     /**
-     * @param $data
      * @return array
      *
      * @throws RtnException

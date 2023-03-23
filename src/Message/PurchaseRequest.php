@@ -6,6 +6,7 @@ use Ecpay\Sdk\Services\UrlService;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\ECPay\Item;
+use Omnipay\ECPay\Traits\HasAmount;
 use Omnipay\ECPay\Traits\HasATMFields;
 use Omnipay\ECPay\Traits\HasATMOrCVSOrBARCODEFields;
 use Omnipay\ECPay\Traits\HasCreditFields;
@@ -32,6 +33,7 @@ class PurchaseRequest extends AbstractRequest
     use HasATMFields;
     use HasCVSOrBARCODEFields;
     use HasATMOrCVSOrBARCODEFields;
+    use HasAmount;
 
     protected $liveEndpoint = 'https://payment.ecpay.com.tw/Cashier/AioCheckOut/V5';
 
@@ -125,12 +127,14 @@ class PurchaseRequest extends AbstractRequest
         $currency = $this->getCurrency() ?: 'TWD';
 
         if (! $items) {
-            return [new Item([
-                'Name' => $this->getDescription(),
-                'Price' => $this->getAmount(),
-                'Currency' => $currency,
-                'Quantity' => 1,
-            ])];
+            return [
+                new Item([
+                    'Name' => $this->getDescription(),
+                    'Price' => $this->getAmount(),
+                    'Currency' => $currency,
+                    'Quantity' => 1,
+                ]),
+            ];
         }
 
         return array_map(static function ($item) use ($currency) {

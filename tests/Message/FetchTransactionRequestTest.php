@@ -35,8 +35,6 @@ class FetchTransactionRequestTest extends TestCase
 
     /**
      * @depends testGetData
-     *
-     * @param $result
      */
     public function testSendData($result)
     {
