@@ -20,21 +20,20 @@ class GatewayTest extends GatewayTestCase
     {
         parent::setUp();
 
+        $this->options = ['testMode' => true];
         $this->gateway = new StubGateway($this->getHttpClient(), $this->getHttpRequest());
+        $this->gateway->initialize($this->options);
+    }
 
-        $this->options = [
+    public function testPurchase()
+    {
+        $response = $this->gateway->purchase([
             'transactionId' => uniqid('MerchantTradeNo', true),
             'amount' => 2000,
             'description' => 'description',
             'returnUrl' => 'https://foo.bar/return_url',
             'notifyUrl' => 'https://foo.bar/notify_url',
-            'testMode' => true,
-        ];
-    }
-
-    public function testPurchase()
-    {
-        $response = $this->gateway->purchase(array_merge($this->options, []))->send();
+        ])->send();
 
         self::assertFalse($response->isSuccessful());
         self::assertTrue($response->isRedirect());
@@ -44,7 +43,7 @@ class GatewayTest extends GatewayTestCase
 
     public function testCompletePurchase()
     {
-        $response = $this->gateway->completePurchase(array_merge($this->options, [
+        $this->getHttpRequest()->request->add([
             'CustomField1' => '',
             'CustomField2' => '',
             'CustomField3' => '',
@@ -62,7 +61,8 @@ class GatewayTest extends GatewayTestCase
             'TradeDate' => '2019/09/02 15:49:16',
             'TradeNo' => '1909021549160081',
             'CheckMacValue' => 'E7EC8DDC6C5C51B1A4D8BEA261246066858B38184C55FD3DD3D6DFF53F535A64',
-        ]))->send();
+        ]);
+        $response = $this->gateway->completePurchase()->send();
 
         self::assertTrue($response->isSuccessful());
         self::assertEquals('Succeeded', $response->getMessage());
@@ -70,7 +70,7 @@ class GatewayTest extends GatewayTestCase
 
     public function testAcceptNotification()
     {
-        $response = $this->gateway->acceptNotification(array_merge($this->options, [
+        $this->getHttpRequest()->request->add([
             'CustomField1' => '',
             'CustomField2' => '',
             'CustomField3' => '',
@@ -88,7 +88,8 @@ class GatewayTest extends GatewayTestCase
             'TradeDate' => '2019/09/02 15:49:16',
             'TradeNo' => '1909021549160081',
             'CheckMacValue' => 'E7EC8DDC6C5C51B1A4D8BEA261246066858B38184C55FD3DD3D6DFF53F535A64',
-        ]))->send();
+        ]);
+        $response = $this->gateway->acceptNotification()->send();
 
         self::assertTrue($response->isSuccessful());
         self::assertEquals('Succeeded', $response->getMessage());

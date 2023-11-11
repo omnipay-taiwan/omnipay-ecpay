@@ -2,7 +2,6 @@
 
 namespace Omnipay\ECPay\Tests\Message;
 
-use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Exception\InvalidResponseException;
 use Omnipay\ECPay\Message\CompletePurchaseRequest;
 use Omnipay\Tests\TestCase;
@@ -10,12 +9,11 @@ use Omnipay\Tests\TestCase;
 class CompletePurchaseRequestTest extends TestCase
 {
     /**
-     * @throws InvalidRequestException
      * @throws InvalidResponseException
      */
     public function testGetData()
     {
-        $options = [
+        $data = [
             'CustomField1' => '',
             'CustomField2' => '',
             'CustomField3' => '',
@@ -35,18 +33,19 @@ class CompletePurchaseRequestTest extends TestCase
             'CheckMacValue' => 'E7EC8DDC6C5C51B1A4D8BEA261246066858B38184C55FD3DD3D6DFF53F535A64',
         ];
 
+        $this->getHttpRequest()->request->add($data);
         $request = new CompletePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
-        $request->initialize(array_merge([
+        $request->initialize([
             'HashKey' => '5294y06JbISpM5x9',
             'HashIV' => 'v77hoKGq4kWxNNIS',
             'EncryptType' => '1',
             'MerchantID' => '2000132',
-        ], $options));
-        $request->setTestMode(true);
+            'testMode' => true,
+        ]);
 
-        self::assertEquals($options, $request->getData());
+        self::assertEquals($data, $request->getData());
 
-        return [$request->send(), $options];
+        return [$request->send(), $data];
     }
 
     /**
@@ -55,13 +54,13 @@ class CompletePurchaseRequestTest extends TestCase
     public function testSendData($result)
     {
         $response = $result[0];
-        $options = $result[1];
+        $data = $result[1];
 
         self::assertTrue($response->isSuccessful());
         self::assertEquals('Succeeded', $response->getMessage());
-        self::assertEquals($options['RtnCode'], $response->getCode());
-        self::assertEquals($options['TradeNo'], $response->getTransactionReference());
-        self::assertEquals($options['MerchantTradeNo'], $response->getTransactionId());
+        self::assertEquals($data['RtnCode'], $response->getCode());
+        self::assertEquals($data['TradeNo'], $response->getTransactionReference());
+        self::assertEquals($data['MerchantTradeNo'], $response->getTransactionId());
     }
 
     public function testInvalidCheckMacValue()
@@ -69,7 +68,7 @@ class CompletePurchaseRequestTest extends TestCase
         $this->expectException(InvalidResponseException::class);
         $this->expectExceptionMessage('CheckMacValue verify fail');
 
-        $options = [
+        $data = [
             'CustomField1' => '',
             'CustomField2' => '',
             'CustomField3' => '',
@@ -89,14 +88,15 @@ class CompletePurchaseRequestTest extends TestCase
             'CheckMacValue' => '7EC8DDC6C5C51B1A4D8BEA261246066858B38184C55FD3DD3D6DFF53F535A64',
         ];
 
+        $this->getHttpRequest()->request->add($data);
         $request = new CompletePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
-        $request->initialize(array_merge([
+        $request->initialize([
             'HashKey' => '5294y06JbISpM5x9',
             'HashIV' => 'v77hoKGq4kWxNNIS',
             'EncryptType' => '1',
             'MerchantID' => '2000132',
-        ], $options));
-        $request->setTestMode(true);
+            'testMode' => true,
+        ]);
 
         $request->send();
     }
