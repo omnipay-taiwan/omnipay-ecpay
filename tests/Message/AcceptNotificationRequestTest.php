@@ -90,14 +90,14 @@ class AcceptNotificationRequestTest extends TestCase
         ];
 
         $this->getHttpRequest()->request->add($data);
-        $request = new AcceptNotificationRequest($this->getHttpClient(), $this->getHttpRequest());
-        $request->initialize([
+        $notification = new AcceptNotificationRequest($this->getHttpClient(), $this->getHttpRequest());
+        $notification->initialize([
             'HashKey' => '5294y06JbISpM5x9',
             'HashIV' => 'v77hoKGq4kWxNNIS',
             'EncryptType' => '1',
             'MerchantID' => '2000132',
         ]);
-        $request->setTestMode(true);
-        $request->send();
+        $notification->setTestMode(true);
+        $notification->getTransactionStatus();
     }
 }

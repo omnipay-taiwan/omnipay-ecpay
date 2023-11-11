@@ -2,6 +2,7 @@
 
 namespace Omnipay\ECPay\Tests;
 
+use Omnipay\Common\Message\NotificationInterface;
 use Omnipay\ECPay\Gateway;
 use Omnipay\ECPay\Tests\Stubs\StubGateway;
 use Omnipay\Tests\GatewayTestCase;
@@ -89,11 +90,11 @@ class GatewayTest extends GatewayTestCase
             'TradeNo' => '1909021549160081',
             'CheckMacValue' => 'E7EC8DDC6C5C51B1A4D8BEA261246066858B38184C55FD3DD3D6DFF53F535A64',
         ]);
-        $response = $this->gateway->acceptNotification()->send();
+        $notification = $this->gateway->acceptNotification();
 
-        self::assertTrue($response->isSuccessful());
-        self::assertEquals('Succeeded', $response->getMessage());
-        self::assertEquals('1|OK', $response->getReply());
+        self::assertEquals(NotificationInterface::STATUS_COMPLETED, $notification->getTransactionStatus());
+        self::assertEquals('Succeeded', $notification->getMessage());
+        self::assertEquals('1|OK', $notification->getReply());
     }
 
     public function testFetchTransaction()
