@@ -23,17 +23,17 @@ use Omnipay\ECPay\Traits\HasStoreID;
  */
 class PurchaseRequest extends AbstractRequest
 {
-    use HasDefaults;
-    use HasMerchantTradeNo;
-    use HasStoreID;
-    use HasSendFields;
-    use HasCustomFields;
-    use HasInvoiceFields;
-    use HasCreditFields;
-    use HasATMFields;
-    use HasCVSOrBARCODEFields;
-    use HasATMOrCVSOrBARCODEFields;
     use HasAmount;
+    use HasATMFields;
+    use HasATMOrCVSOrBARCODEFields;
+    use HasCreditFields;
+    use HasCustomFields;
+    use HasCVSOrBARCODEFields;
+    use HasDefaults;
+    use HasInvoiceFields;
+    use HasMerchantTradeNo;
+    use HasSendFields;
+    use HasStoreID;
 
     protected $liveEndpoint = 'https://payment.ecpay.com.tw/Cashier/AioCheckOut/V5';
 

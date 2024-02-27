@@ -12,11 +12,11 @@ use Omnipay\ECPay\Traits\HasTotalAmount;
 
 class RefundRequest extends AbstractRequest
 {
-    use HasECPay;
+    use HasAmount;
     use HasDefaults;
+    use HasECPay;
     use HasMerchantTradeNo;
     use HasTotalAmount;
-    use HasAmount;
 
     public function setTradeNo($value)
     {

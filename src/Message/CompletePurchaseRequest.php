@@ -11,8 +11,8 @@ use Omnipay\ECPay\Traits\HasECPay;
 
 class CompletePurchaseRequest extends AbstractRequest
 {
-    use HasECPay;
     use HasDefaults;
+    use HasECPay;
 
     /**
      * @return array

@@ -4,8 +4,8 @@ namespace Omnipay\ECPay\Traits;
 
 trait HasSendFields
 {
-    use HasTotalAmount;
     use HasPlatformId;
+    use HasTotalAmount;
 
     /**
      * 特店交易時間
