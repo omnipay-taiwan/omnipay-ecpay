@@ -69,7 +69,9 @@ trait HasSendFields
 
     /**
      * 選擇預設 付款方式
-     * 綠界提供下列付款方式，請於建立訂單 時傳送過來: Credit:信用卡及銀聯卡(需申請開通) WebATM:網路 ATM
+     * 綠界提供下列付款方式，請於建立訂單 時傳送過來:
+     * Credit:信用卡及銀聯卡(需申請開通)
+     * WebATM:網路 ATM
      * ATM:自動櫃員機
      * CVS:超商代碼
      * BARCODE:超商條碼 ALL:不指定付款方式，由綠界顯示付款 方式選擇頁面。
@@ -80,7 +82,7 @@ trait HasSendFields
      */
     public function setChoosePayment($value)
     {
-        return $this->setParameter('ChoosePayment', $value);
+        return $this->setPaymentMethod($value);
     }
 
     /**
@@ -88,7 +90,7 @@ trait HasSendFields
      */
     public function getChoosePayment()
     {
-        return $this->getParameter('ChoosePayment') ?: 'ALL';
+        return $this->getPaymentMethod();
     }
 
     /**

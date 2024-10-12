@@ -85,7 +85,7 @@ class PurchaseRequest extends AbstractRequest
             'PaymentType' => $this->getPaymentType(),
             'TotalAmount' => (int) $amount,
             'TradeDesc' => UrlService::ecpayUrlEncode($this->getDescription()),
-            'ChoosePayment' => $this->getChoosePayment(),
+            'ChoosePayment' => $this->getChoosePayment() ?: 'ALL',
             'Remark' => $this->getRemark(),
             'ChooseSubPayment' => $this->getChooseSubPayment(),
             'NeedExtraPaidInfo' => $this->getNeedExtraPaidInfo(),
