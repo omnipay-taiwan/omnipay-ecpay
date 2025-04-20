@@ -4,6 +4,7 @@ namespace Omnipay\ECPay\Message;
 
 use Ecpay\Sdk\Response\VerifiedArrayResponse;
 use Exception;
+use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Exception\InvalidResponseException;
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\ECPay\Traits\HasDefaults;
@@ -28,14 +29,14 @@ class CompletePurchaseRequest extends AbstractRequest
      * @param  array  $data
      * @return CompletePurchaseResponse
      *
-     * @throws InvalidResponseException
+     * @throws InvalidRequestException
      */
     public function sendData($data)
     {
         try {
             $this->factory($this, VerifiedArrayResponse::class)->get($data);
         } catch (Exception $e) {
-            throw new InvalidResponseException($e->getMessage(), $e->getCode(), $e);
+            throw new InvalidRequestException($e->getMessage(), $e->getCode(), $e);
         }
 
         return $this->response = new CompletePurchaseResponse($this, $data);
@@ -46,13 +47,14 @@ class CompletePurchaseRequest extends AbstractRequest
      * @return array
      *
      * @throws InvalidResponseException
+     * @throws InvalidRequestException
      */
     private function checkMacValue($data)
     {
         try {
             $this->factory($this, VerifiedArrayResponse::class)->get($data);
         } catch (Exception $e) {
-            throw new InvalidResponseException($e->getMessage(), $e->getCode(), $e);
+            throw new InvalidRequestException($e->getMessage(), $e->getCode(), $e);
         }
 
         return $data;

@@ -2,6 +2,7 @@
 
 namespace Omnipay\ECPay\Tests\Message;
 
+use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Exception\InvalidResponseException;
 use Omnipay\ECPay\Message\CompletePurchaseRequest;
 use Omnipay\Tests\TestCase;
@@ -65,7 +66,7 @@ class CompletePurchaseRequestTest extends TestCase
 
     public function testInvalidCheckMacValue()
     {
-        $this->expectException(InvalidResponseException::class);
+        $this->expectException(InvalidRequestException::class);
         $this->expectExceptionMessage('CheckMacValue verify fail');
 
         $data = [
