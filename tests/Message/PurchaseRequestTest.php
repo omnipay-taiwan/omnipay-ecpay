@@ -44,12 +44,14 @@ class PurchaseRequestTest extends TestCase
         $request->setTestMode(true);
         $request->setReturnUrl($returnUrl);
         $request->setNotifyUrl($notifyUrl);
-        $request->setItems([[
-            'Name' => '歐付寶黑芝麻豆漿',
-            'Price' => 2000,
-            'Quantity' => 1,
-            'Currency' => 'TWD',
-        ]]);
+        $request->setItems([
+            [
+                'Name' => '歐付寶黑芝麻豆漿',
+                'Price' => 2000,
+                'Quantity' => 1,
+                'Currency' => 'TWD',
+            ],
+        ]);
         $options['ItemName'] = '歐付寶黑芝麻豆漿 2000 TWD x 1';
         $options['TradeDesc'] = UrlService::ecpayUrlEncode($options['TradeDesc']);
 

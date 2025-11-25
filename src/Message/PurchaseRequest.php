@@ -82,7 +82,7 @@ class PurchaseRequest extends AbstractRequest
             'MerchantID' => $this->getMerchantID(),
             'MerchantTradeNo' => $this->getTransactionId(),
             'MerchantTradeDate' => $this->getMerchantTradeDate(),
-            'PaymentType' => $this->getPaymentType(),
+            'PaymentType' => $this->getPaymentType() ?: 'aio',
             'TotalAmount' => (int) $amount,
             'TradeDesc' => UrlService::ecpayUrlEncode($this->getDescription()),
             'ChoosePayment' => $this->getChoosePayment() ?: 'ALL',
