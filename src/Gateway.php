@@ -35,9 +35,9 @@ class Gateway extends AbstractGateway
     public function getDefaultParameters()
     {
         return [
+            'MerchantID' => '2000132', //測試用MerchantID，請自行帶入ECPay提供的MerchantID
             'HashKey' => '5294y06JbISpM5x9', //測試用Hashkey，請自行帶入ECPay提供的HashKey
             'HashIV' => 'v77hoKGq4kWxNNIS', //測試用HashIV，請自行帶入ECPay提供的HashIV
-            'MerchantID' => '2000132', //測試用MerchantID，請自行帶入ECPay提供的MerchantID
             'EncryptType' => '1', //CheckMacValue加密類型，請固定填入1，使用SHA256加密
             'testMode' => false,
         ];
