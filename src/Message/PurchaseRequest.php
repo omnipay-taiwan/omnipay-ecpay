@@ -157,6 +157,7 @@ class PurchaseRequest extends AbstractRequest
             $this->getCreditFields($sendFields['ChoosePayment']),
             $this->getATMFields($sendFields['ChoosePayment']),
             $this->getCvsFields($sendFields['ChoosePayment']),
+            $this->getBNPLFields($sendFields['ChoosePayment']),
             $this->getInvoiceFields($sendFields['InvoiceMark'])
         );
     }
@@ -210,6 +211,20 @@ class PurchaseRequest extends AbstractRequest
             'PaymentInfoURL' => $this->getPaymentInfoURL(),
             'ClientRedirectURL' => $this->getClientRedirectURL(),
             'StoreExpireDate' => $this->getStoreExpireDate(),
+        ] : [];
+    }
+
+    /**
+     * BNPL 無卡分期（裕富/中租）.
+     *
+     * @param  string  $choosePayment
+     * @return array
+     */
+    private function getBNPLFields($choosePayment)
+    {
+        return in_array($choosePayment, ['ALL', 'BNPL'], true) ? [
+            'PaymentInfoURL' => $this->getPaymentInfoURL(),
+            'ClientRedirectURL' => $this->getClientRedirectURL(),
         ] : [];
     }
 

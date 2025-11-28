@@ -78,4 +78,143 @@ class PurchaseRequestTest extends TestCase
         self::assertEquals('https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5', $response->getRedirectUrl());
         self::assertNotEmpty($redirectData['CheckMacValue']);
     }
+
+    public function testATMGetData()
+    {
+        $returnUrl = 'https://foo.bar/return_url';
+        $notifyUrl = 'https://foo.bar/notify_url';
+        $paymentInfoUrl = 'https://foo.bar/payment_info_url';
+        $clientRedirectUrl = 'https://foo.bar/client_redirect_url';
+        $options = [
+            'ReturnURL' => $notifyUrl,
+            'ClientBackURL' => 'https://foo.bar/client_back_url',
+            'OrderResultURL' => $returnUrl,
+            'MerchantTradeNo' => 'Test'.time(),
+            'MerchantTradeDate' => date('Y/m/d H:i:s'),
+            'PaymentType' => 'aio',
+            'TotalAmount' => 2000,
+            'TradeDesc' => 'good to drink',
+            'ChoosePayment' => 'ATM',
+            'NeedExtraPaidInfo' => 'N',
+            'MerchantID' => '2000132',
+            'EncryptType' => '1',
+            'ExpireDate' => 7,
+            'PaymentInfoURL' => $paymentInfoUrl,
+            'ClientRedirectURL' => $clientRedirectUrl,
+        ];
+
+        $request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
+        $request->initialize(array_merge([
+            'HashKey' => '5294y06JbISpM5x9',
+            'HashIV' => 'v77hoKGq4kWxNNIS',
+            'MerchantID' => '2000132',
+            'EncryptType' => '1',
+        ], $options));
+        $request->setTestMode(true);
+        $request->setReturnUrl($returnUrl);
+        $request->setNotifyUrl($notifyUrl);
+        $request->setItems([
+            [
+                'Name' => '歐付寶黑芝麻豆漿',
+                'Price' => 2000,
+                'Quantity' => 1,
+                'Currency' => 'TWD',
+            ],
+        ]);
+        $options['ItemName'] = '歐付寶黑芝麻豆漿 2000 TWD x 1';
+        $options['TradeDesc'] = UrlService::ecpayUrlEncode($options['TradeDesc']);
+
+        self::assertEquals($options, $request->getData());
+    }
+
+    public function testBNPLGetData()
+    {
+        $returnUrl = 'https://foo.bar/return_url';
+        $notifyUrl = 'https://foo.bar/notify_url';
+        $paymentInfoUrl = 'https://foo.bar/payment_info_url';
+        $clientRedirectUrl = 'https://foo.bar/client_redirect_url';
+        $options = [
+            'ReturnURL' => $notifyUrl,
+            'ClientBackURL' => 'https://foo.bar/client_back_url',
+            'OrderResultURL' => $returnUrl,
+            'MerchantTradeNo' => 'Test'.time(),
+            'MerchantTradeDate' => date('Y/m/d H:i:s'),
+            'PaymentType' => 'aio',
+            'TotalAmount' => 5000,
+            'TradeDesc' => 'good to drink',
+            'ChoosePayment' => 'BNPL',
+            'NeedExtraPaidInfo' => 'N',
+            'MerchantID' => '2000132',
+            'EncryptType' => '1',
+            'PaymentInfoURL' => $paymentInfoUrl,
+            'ClientRedirectURL' => $clientRedirectUrl,
+        ];
+
+        $request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
+        $request->initialize(array_merge([
+            'HashKey' => '5294y06JbISpM5x9',
+            'HashIV' => 'v77hoKGq4kWxNNIS',
+            'MerchantID' => '2000132',
+            'EncryptType' => '1',
+        ], $options));
+        $request->setTestMode(true);
+        $request->setReturnUrl($returnUrl);
+        $request->setNotifyUrl($notifyUrl);
+        $request->setItems([
+            [
+                'Name' => '歐付寶黑芝麻豆漿',
+                'Price' => 5000,
+                'Quantity' => 1,
+                'Currency' => 'TWD',
+            ],
+        ]);
+        $options['ItemName'] = '歐付寶黑芝麻豆漿 5000 TWD x 1';
+        $options['TradeDesc'] = UrlService::ecpayUrlEncode($options['TradeDesc']);
+
+        self::assertEquals($options, $request->getData());
+    }
+
+    public function testFlexibleInstallmentGetData()
+    {
+        $returnUrl = 'https://foo.bar/return_url';
+        $notifyUrl = 'https://foo.bar/notify_url';
+        $options = [
+            'ReturnURL' => $notifyUrl,
+            'ClientBackURL' => 'https://foo.bar/client_back_url',
+            'OrderResultURL' => $returnUrl,
+            'MerchantTradeNo' => 'Test'.time(),
+            'MerchantTradeDate' => date('Y/m/d H:i:s'),
+            'PaymentType' => 'aio',
+            'TotalAmount' => 10000,
+            'TradeDesc' => 'good to drink',
+            'ChoosePayment' => 'Credit',
+            'NeedExtraPaidInfo' => 'N',
+            'MerchantID' => '2000132',
+            'EncryptType' => '1',
+            'CreditInstallment' => '30N',
+        ];
+
+        $request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
+        $request->initialize(array_merge([
+            'HashKey' => '5294y06JbISpM5x9',
+            'HashIV' => 'v77hoKGq4kWxNNIS',
+            'MerchantID' => '2000132',
+            'EncryptType' => '1',
+        ], $options));
+        $request->setTestMode(true);
+        $request->setReturnUrl($returnUrl);
+        $request->setNotifyUrl($notifyUrl);
+        $request->setItems([
+            [
+                'Name' => '歐付寶黑芝麻豆漿',
+                'Price' => 10000,
+                'Quantity' => 1,
+                'Currency' => 'TWD',
+            ],
+        ]);
+        $options['ItemName'] = '歐付寶黑芝麻豆漿 10000 TWD x 1';
+        $options['TradeDesc'] = UrlService::ecpayUrlEncode($options['TradeDesc']);
+
+        self::assertEquals($options, $request->getData());
+    }
 }
