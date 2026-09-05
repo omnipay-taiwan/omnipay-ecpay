@@ -1,20 +1,12 @@
 # Changelog
 
-All Notable changes to `:package_name` will be documented in this file
+All Notable changes to `omnipay-ecpay` will be documented in this file
 
-## NEXT - YYYY-MM-DD
+## Unreleased
 
 ### Added
-- Nothing
+- BNPL (無卡分期) payment support for `PurchaseRequest`
+- Test coverage for ATM and FlexibleInstallment (30N credit installment) purchase scenarios, which were previously untested even though the underlying code already supported them
 
-### Deprecated
-- Nothing
-
-### Fixed
-- Nothing
-
-### Removed
-- Nothing
-
-### Security
-- Nothing
+### Changed
+- Default `PaymentType` now falls back to `aio` when not explicitly set
